@@ -26,12 +26,12 @@ bindsym $mod+Return exec /usr/bin/gnome-terminal
 bindsym $mod+Shift+q kill
 
 # start program launcher(dmenu_recency)
-bindsym $mod+d exec --no-startup-id dmenu_recency
+bindsym $mod+d exec --no-startup-id dmenu_recency -nb '#222D32' -sf '#eeeeee' -sb '#02A7F6' -nf '#bbbbbb'
 
 # launch categorized menu(morc_menu)
 bindsym $mod+z exec --no-startup-id morc_menu
 
-# Start Applications
+# screenshots
 bindsym Print exec --no-startup-id i3-scrot
 #bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
 
@@ -117,7 +117,10 @@ bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 
 # Open applications on specific workspaces
-# assign [class="chromium"] $ws1
+assign [class="Chromium"] $ws1
+assign [class="Atom"] $ws2
+assign [class="IDEA"] #ws2
+assign [class="Telegram"] $ws4
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
@@ -135,7 +138,6 @@ for_window [title="MuseScore: Play Panel"] floating enable
 for_window [class="Nitrogen"] floating enable sticky enable border normal
 for_window [class="Oblogout"] fullscreen enable
 for_window [class="octopi"] floating enable
-for_window [title="About Pale Moon"] floating enable
 for_window [class="Pamac-manager"] floating enable
 for_window [class="Pavucontrol"] floating enable
 for_window [class="qt5ct"] floating enable sticky enable border normal
@@ -161,7 +163,7 @@ for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
 
 # switch to workspace with urgent window automatically
-for_window [urgent=latest] focus
+#for_window [urgent=latest] focus
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -203,44 +205,19 @@ bindsym $mod+0 exec --no-startup-id blurlock
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id nitrogen --restore; sleep 1; compton -b
+# exec --no-startup-id nitrogen --restore; sleep 1;
+exec_always --no-startup-id "feh --bg-fill ~/.i3/background.jpg"
+exec_always --no-startup-id compton --backend glx --unredir-if-possible --vsync opengl-swc
 exec --no-startup-id xautolock -time 40 -locker blurlock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id "setxkbmap -model pc105 -layout us,ru -option grp:alt_shift_toggle"
+# exec --no-startup-id "php ~/.i3/autokeymap.php"
 
 # volume controls
 bindsym $mod+F3 exec amixer set Master 2%+
 bindsym $mod+F2 exec amixer set Master 2%-
 bindsym $mod+Shift+F2 exec amixer set Master toggle
-
-# Color palette used for the terminal ( ~/.Xresources file )
-# Colors are gathered based on the documentation:
-set_from_resource $term_background background
-set_from_resource $term_foreground foreground
-set_from_resource $term_color0     color0
-set_from_resource $term_color1     color1
-set_from_resource $term_color2     color2
-set_from_resource $term_color3     color3
-set_from_resource $term_color4     color4
-set_from_resource $term_color5     color5
-set_from_resource $term_color6     color6
-set_from_resource $term_color7     color7
-set_from_resource $term_color8     color8
-set_from_resource $term_color9     color9
-set_from_resource $term_color10    color10
-set_from_resource $term_color11    color11
-set_from_resource $term_color12    color12
-set_from_resource $term_color13    color13
-set_from_resource $term_color14    color14
-set_from_resource $term_color15    color15
-
-# Start i3bar to display a workspace bar (plus the system information i3status if available)
-bar {
-	tray_output none
-	mode invisible
-	font pango:DevaVu Sans Mono for Powerline 8
-}
 
 # Theme colors
 # class                   border  backgr. text    indic.   child_border
