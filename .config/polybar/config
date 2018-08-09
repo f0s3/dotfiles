@@ -1,6 +1,6 @@
-;-------------------------------------------------------------------------------
-;	V A R I A B L E S
-;-------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------;
+;				V A R I A B L E S				;
+;-------------------------------------------------------------------------------;
 
 [colors]
 background = #222d32
@@ -24,15 +24,15 @@ blue = #02adff
 [bar/right]
 width = 100%
 height = 15
-fixed-center = true
+fixed-center = false 
 
 background = #222d32
 foreground = ${colors.foreground}
-
-font-0 = DejaVu Sans Mono:pixelsize=10;3
-font-1 = PowerlineSymbols:pixelsize=11;3
-font-2 = Noto Sans Symbols2:pixelsize=11;3
-font-3 = FontAwesome:pixelsize=11;3
+font-0 = DejaVuSansMono Nerd Font:pixelsize=10;3
+;font-0 = DejaVu Sans Mono for Powerline:pixelsize=10;3
+;font-1 = PowerlineSymbols:pixelsize=11;3
+;font-2 = Noto Sans Symbols2:pixelsize=11;3
+;font-3 = FontAwesome:pixelsize=11;3
 
 modules-left = i3 arrowi3
 modules-right =  arrowtitle title arrowkeyboard xkeyboard arrowvolume volume arrowcpu cpu arrowmemory memory arrowdate date
@@ -42,7 +42,7 @@ tray-background = ${colors.background}
 tray-padding = 1
 
 ;-------------------------------------------------------------------------------;
-;                    		D E C O R A T I O N S				                            ;
+;                    		D E C O R A T I O N S								;
 ;-------------------------------------------------------------------------------;
 
 [module/arrowi3]
@@ -119,9 +119,7 @@ label-layout-font = 1
 label-layout-foreground = ${colors.white}
 label-layout-background = #8E1EFF
 
-; label-indicator-padding = 2
-; label-indicator-margin = 1
-; label-indicator-background = ${colors.blue}
+label-indicator-background = #8E1EFF
 ; label-indicator-underline = ${colors.blue}
 
 [module/i3index]
@@ -144,18 +142,18 @@ type = internal/i3
 format = <label-state><label-mode>
 
 index-sort = false
-enable-click = false
+enable-click = true 
 enable-scroll = false
 
 ws-icon-0 = 10;0[]
-ws-icon-1 = 1;1 
+ws-icon-1 = 1;1  
 ws-icon-2 = 2;2 
-ws-icon-3 = 3;3 
+ws-icon-3 = 3;3  
 ws-icon-4 = 4;4 
-ws-icon-5 = 5;5
+ws-icon-5 = 5;5 ♪
 ws-icon-6 = 6;6
 ws-icon-7 = 7;7
-ws-icon-8 = 8;8 ♪
+ws-icon-8 = 8;8
 ws-icon-9 = 9;9
 ws-icon-default =
 
@@ -232,7 +230,7 @@ label-volume-foreground = ${colors.white}
 label-volume-background = #02bdff
 label-muted = "🔇"
 label-muted-foreground = ${colors.black}
-label-muted-background = ${colors.red}
+label-muted-background = #02bdff
 
 ramp-volume-0 = "🔈"
 ramp-volume-0-foreground = ${colors.white}
@@ -267,4 +265,4 @@ format-background = ${colors.black}
 format-foreground = ${colors.white}
 format-padding = 1
 
-label-maxlen = 200
+label-maxlen = 60
