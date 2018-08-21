@@ -9,7 +9,7 @@ background-alt = #222d32
 foreground = #b2b2b2
 
 trans = #222d32
-white = #eee
+white = #fff
 grey = #444444
 pink = #d75f87
 purple = #8e1eff
@@ -29,6 +29,7 @@ fixed-center = false
 background = #222d32
 foreground = ${colors.foreground}
 font-0 = DejaVuSansMono Nerd Font:pixelsize=10;3
+font-1 = NotoSans Symbols2:pixelsize=10;3
 ;font-0 = DejaVu Sans Mono for Powerline:pixelsize=10;3
 ;font-1 = PowerlineSymbols:pixelsize=11;3
 ;font-2 = Noto Sans Symbols2:pixelsize=11;3
@@ -48,7 +49,7 @@ tray-padding = 1
 [module/arrowi3]
 ; background to trans
 type = custom/text
-content = "█ "
+content = " "
 content-font = 2
 content-foreground = ${colors.blue}
 content-background = ${colors.trans}
@@ -126,16 +127,13 @@ label-indicator-background = #8E1EFF
 type = internal/i3
 format = <label-state>
 
-label-focused = "%name% "
+label-focused = "%name%"
 label-focused-foreground = ${colors.background}
 label-focused-background = ${colors.pink}
 
-label-visible = "%name% "
+label-visible = "%name%"
 label-visible-foreground = ${colors.trans}
 label-visible-background = ${colors.pink}
-
-label-unfocused =
-label-urgent =
 
 [module/i3]
 type = internal/i3
@@ -144,7 +142,6 @@ format = <label-state><label-mode>
 index-sort = false
 enable-click = true 
 enable-scroll = false
-
 ws-icon-0 = 10;0[]
 ws-icon-1 = 1;1  
 ws-icon-2 = 2;2 
@@ -160,12 +157,12 @@ ws-icon-default =
 ; Only show workspaces on the same output as the bar
 pin-workspaces = true
 
-label-mode = " <%mode%> "
+label-mode = " %mode% "
 label-mode-foreground = ${colors.purple}
 label-mode-background = ${colors.black}
 
 ; focused = Active workspace on focused monitor
-label-focused = " %icon% "
+label-focused = %{F#02adff B#0B0F10}%{F-} %icon% %{B#02adff F#0B0F10}%{F-}
 label-focused-foreground = ${colors.white}
 label-focused-background = ${colors.black}
 
@@ -179,7 +176,7 @@ label-unfocused-foreground = ${colors.black}
 label-unfocused-background = ${colors.blue}
 
 ; urgent = Workspace with urgency hint set
-label-urgent = "  >%icon%<  "
+label-urgent = " %icon% "
 label-urgent-foreground = ${colors.red}
 label-urgent-background = ${colors.blue}
 
@@ -213,7 +210,7 @@ type = internal/date
 interval = 1
 
 date = "  %d.%m.%y"
-time= %H:%M:%S
+time= "%H:%M:%S "
 
 label = %date% %time%
 label-foreground = ${colors.white}
@@ -225,23 +222,23 @@ type = internal/volume
 ; mapping = true
 format-volume = <ramp-volume><label-volume>
 
-label-volume = %percentage%%
+label-volume = "%percentage%% "
 label-volume-foreground = ${colors.white}
 label-volume-background = #02bdff
-label-muted = "🔇"
+label-muted = " 🔇 "
 label-muted-foreground = ${colors.black}
 label-muted-background = #02bdff
 
-ramp-volume-0 = "🔈"
+ramp-volume-0 = " 🔈 "
 ramp-volume-0-foreground = ${colors.white}
 ramp-volume-0-background = #02bdff
-ramp-volume-1 = "🔈"
+ramp-volume-1 = " 🔈 "
 ramp-volume-1-foreground = ${colors.white}
 ramp-volume-1-background = #02bdff
-ramp-volume-2 = "🔉"
+ramp-volume-2 = " 🔉 "
 ramp-volume-2-foreground = ${colors.white}
 ramp-volume-2-background = #02bdff
-ramp-volume-3 = "🔊"
+ramp-volume-3 = " 🔊 "
 ramp-volume-3-foreground = ${colors.red}
 ramp-volume-3-background = #02bdff
 
@@ -255,8 +252,6 @@ screenchange-reload = true
 [global/wm]
 margin-top = 5
 margin-bottom = 5
-
-; vim:ft=dosini
 
 [module/title]
 type = internal/xwindow
