@@ -1,39 +1,25 @@
 ;-------------------------------------------------------------------------------;
-;				V A R I A B L E S				;
+;								V A R I A B L E S								;
 ;-------------------------------------------------------------------------------;
-
 [colors]
 background = #222d32
-background-alt = #222d32
-
-foreground = #b2b2b2
-
-trans = #222d32
 white = #fff
-grey = #444444
-pink = #d75f87
-purple = #8e1eff
 red = #f00
-black = #0B0F10
+black = #000
 blue = #02adff
-
+violet = #8e1eff
 ;-------------------------------------------------------------------------------;
-;			        	B A R S					;
+;							        B A R S										;
 ;-------------------------------------------------------------------------------;
-
 [bar/right]
 width = 100%
 height = 15
 fixed-center = false 
 
-background = #222d32
-foreground = ${colors.foreground}
+background = ${colors.background}
+foreground = ${colors.white}
 font-0 = DejaVuSansMono Nerd Font:pixelsize=10;3
 font-1 = NotoSans Symbols2:pixelsize=10;3
-;font-0 = DejaVu Sans Mono for Powerline:pixelsize=10;3
-;font-1 = PowerlineSymbols:pixelsize=11;3
-;font-2 = Noto Sans Symbols2:pixelsize=11;3
-;font-3 = FontAwesome:pixelsize=11;3
 
 modules-left = i3 arrowi3
 modules-right =  arrowtitle title arrowkeyboard xkeyboard arrowvolume volume arrowcpu cpu arrowmemory memory arrowdate date
@@ -41,42 +27,37 @@ modules-right =  arrowtitle title arrowkeyboard xkeyboard arrowvolume volume arr
 tray-position = right
 tray-background = ${colors.background}
 tray-padding = 1
-
 ;-------------------------------------------------------------------------------;
 ;                    		D E C O R A T I O N S								;
 ;-------------------------------------------------------------------------------;
-
 [module/arrowi3]
-; background to trans
 type = custom/text
-content = " "
+content = ""
 content-font = 2
 content-foreground = ${colors.blue}
-content-background = ${colors.trans}
+content-background = ${colors.background}
 
 [module/arrowtitle]
-; background to trans
 type = custom/text
 content = " "
 content-font = 2
 content-foreground = ${colors.black}
-content-background = ${colors.trans}
+content-background = ${colors.background}
 
 [module/arrowkeyboard]
 ; grey to bg
 type = custom/text
 content = " "
 content-font = 2
-content-foreground = #8e1eff
+content-foreground = ${colors.violet}
 content-background = ${colors.black}
 
 [module/arrowvolume]
-; background to trans
 type = custom/text
 content = " "
 content-font = 2
 content-foreground = #02bdff
-content-background = #8e1eff
+content-background = ${colors.violet}
 
 [module/arrowcpu]
 ; grey to bg
@@ -103,9 +84,8 @@ content-foreground = #024dff
 content-background = #027dff
 
 ;-------------------------------------------------------------------------------;
-;				M O D U L E S					;
+;								M O D U L E S				 					;
 ;-------------------------------------------------------------------------------;
-
 [module/xkeyboard]
 type = internal/xkeyboard
 blacklist-0 = num lock
@@ -113,14 +93,14 @@ blacklist-0 = num lock
 format-prefix = " "
 format-prefix-font = 1
 format-prefix-foreground = ${colors.white}
-format-prefix-background = #8E1EFF
+format-prefix-background = ${colors.violet}
 
 label-layout = %layout%
 label-layout-font = 1
 label-layout-foreground = ${colors.white}
-label-layout-background = #8E1EFF
+label-layout-background = ${colors.violet}
 
-label-indicator-background = #8E1EFF
+label-indicator-background = ${colors.violet}
 ; label-indicator-underline = ${colors.blue}
 
 [module/i3index]
@@ -129,11 +109,9 @@ format = <label-state>
 
 label-focused = "%name%"
 label-focused-foreground = ${colors.background}
-label-focused-background = ${colors.pink}
 
 label-visible = "%name%"
-label-visible-foreground = ${colors.trans}
-label-visible-background = ${colors.pink}
+label-visible-foreground = ${colors.background}
 
 [module/i3]
 type = internal/i3
@@ -154,28 +132,23 @@ ws-icon-8 = 8;8
 ws-icon-9 = 9;9
 ws-icon-default =
 
-; Only show workspaces on the same output as the bar
-pin-workspaces = true
+pin-workspaces = true ; Only show workspaces on the same output as the bar
 
 label-mode = " %mode% "
-label-mode-foreground = ${colors.purple}
 label-mode-background = ${colors.black}
 
-; focused = Active workspace on focused monitor
 label-focused = %{F#02adff B#0B0F10}%{F-} %icon% %{B#02adff F#0B0F10}%{F-}
 label-focused-foreground = ${colors.white}
 label-focused-background = ${colors.black}
 
 label-visible = " %icon% "
-label-visible-foreground = ${colors.foreground}
+label-visible-foreground = ${colors.white}
 label-visible-background = ${colors.black}
 
-; unfocused = Inactive workspace on any monitor
 label-unfocused = " %icon% "
 label-unfocused-foreground = ${colors.black}
 label-unfocused-background = ${colors.blue}
 
-; urgent = Workspace with urgency hint set
 label-urgent = " %icon% "
 label-urgent-foreground = ${colors.red}
 label-urgent-background = ${colors.blue}
@@ -189,20 +162,20 @@ label-separator-background = ${colors.background}
 type = internal/cpu
 interval = 2
 format-prefix = "  "
-format-prefix-foreground = ${colors.white}
+format-prefix-foreground = ${colors.black}
 format-prefix-background = #029dff
 label = %percentage%%
-label-foreground = ${colors.white}
+label-foreground = ${colors.black}
 label-background = #029dff
 
 [module/memory]
 type = internal/memory
 interval = 2
 format-prefix = "  "
-format-prefix-foreground = ${colors.white}
+format-prefix-foreground = ${colors.black}
 format-prefix-background = #027dff
 label = %gb_used%
-label-foreground = ${colors.white}
+label-foreground = ${colors.black}
 label-background = #027dff
 
 [module/date]
@@ -213,7 +186,7 @@ date = "  %d.%m.%y"
 time= "%H:%M:%S "
 
 label = %date% %time%
-label-foreground = ${colors.white}
+label-foreground = ${colors.black}
 label-background = #024dff
 
 [module/volume]
@@ -223,20 +196,20 @@ type = internal/volume
 format-volume = <ramp-volume><label-volume>
 
 label-volume = "%percentage%% "
-label-volume-foreground = ${colors.white}
+label-volume-foreground = ${colors.black}
 label-volume-background = #02bdff
 label-muted = " 🔇 "
 label-muted-foreground = ${colors.black}
 label-muted-background = #02bdff
 
 ramp-volume-0 = " 🔈 "
-ramp-volume-0-foreground = ${colors.white}
+ramp-volume-0-foreground = ${colors.black}
 ramp-volume-0-background = #02bdff
 ramp-volume-1 = " 🔈 "
-ramp-volume-1-foreground = ${colors.white}
+ramp-volume-1-foreground = ${colors.black}
 ramp-volume-1-background = #02bdff
 ramp-volume-2 = " 🔉 "
-ramp-volume-2-foreground = ${colors.white}
+ramp-volume-2-foreground = ${colors.black}
 ramp-volume-2-background = #02bdff
 ramp-volume-3 = " 🔊 "
 ramp-volume-3-foreground = ${colors.red}
@@ -244,10 +217,6 @@ ramp-volume-3-background = #02bdff
 
 [settings]
 screenchange-reload = true
-;compositing-background = xor
-;compositing-background = screen
-;compositing-foreground = source
-;compositing-border = over
 
 [global/wm]
 margin-top = 5
