@@ -1,5 +1,5 @@
 ;-------------------------------------------------------------------------------;
-;								V A R I A B L E S								;
+;                               V A R I A B L E S                               ;
 ;-------------------------------------------------------------------------------;
 [colors]
 background = #222d32
@@ -9,7 +9,7 @@ black = #000
 blue = #02adff
 violet = #8e1eff
 ;-------------------------------------------------------------------------------;
-;							        B A R S										;
+;                                   B A R S                                     ;
 ;-------------------------------------------------------------------------------;
 [bar/right]
 width = 100%
@@ -22,13 +22,13 @@ font-0 = DejaVuSansMono Nerd Font:pixelsize=10;3
 font-1 = NotoSans Symbols2:pixelsize=10;3
 
 modules-left = i3 arrowi3
-modules-right =  arrowtitle title arrowkeyboard xkeyboard arrowvolume volume arrowcpu cpu arrowmemory memory arrowdate date
+modules-right = arrowtitle title arrowkeyboard xkeyboard arrowbattery battery arrowvolume volume arrowcpu cpu arrowmemory memory arrowdate date
 
 tray-position = right
 tray-background = ${colors.background}
 tray-padding = 1
 ;-------------------------------------------------------------------------------;
-;                    		D E C O R A T I O N S								;
+;                           D E C O R A T I O N S                               ;
 ;-------------------------------------------------------------------------------;
 [module/arrowi3]
 type = custom/text
@@ -45,22 +45,27 @@ content-foreground = ${colors.black}
 content-background = ${colors.background}
 
 [module/arrowkeyboard]
-; grey to bg
 type = custom/text
 content = " "
 content-font = 2
 content-foreground = ${colors.violet}
 content-background = ${colors.black}
 
+[module/arrowbattery]
+type = custom/text
+content = " █"
+content-font = 2
+content-foreground = #02ddff
+content-background = ${colors.violet}
+
 [module/arrowvolume]
 type = custom/text
 content = " "
 content-font = 2
 content-foreground = #02bdff
-content-background = ${colors.violet}
+content-background = #02ddff
 
 [module/arrowcpu]
-; grey to bg
 type = custom/text
 content = ""
 content-font = 2
@@ -68,7 +73,6 @@ content-foreground = #029dff
 content-background = #02bdff
 
 [module/arrowmemory]
-; bg to grey
 type = custom/text
 content = " "
 content-font = 2
@@ -76,15 +80,13 @@ content-foreground = #027dff
 content-background = #0f9dff
 
 [module/arrowdate]
-; grey to bg
 type = custom/text
 content = " "
 content-font = 2
 content-foreground = #024dff
 content-background = #027dff
-
 ;-------------------------------------------------------------------------------;
-;								M O D U L E S				 					;
+;				M O D U L E S													;
 ;-------------------------------------------------------------------------------;
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -101,7 +103,6 @@ label-layout-foreground = ${colors.white}
 label-layout-background = ${colors.violet}
 
 label-indicator-background = ${colors.violet}
-; label-indicator-underline = ${colors.blue}
 
 [module/i3index]
 type = internal/i3
@@ -109,21 +110,26 @@ format = <label-state>
 
 label-focused = "%name%"
 label-focused-foreground = ${colors.background}
+label-focused-background = ${colors.white}
 
 label-visible = "%name%"
 label-visible-foreground = ${colors.background}
+label-visible-background = ${colors.white}
+
+label-unfocused =
+label-urgent =
 
 [module/i3]
 type = internal/i3
 format = <label-state><label-mode>
 
 index-sort = false
-enable-click = true 
+enable-click = true
 enable-scroll = false
 ws-icon-0 = 10;0[]
-ws-icon-1 = 1;1  
+ws-icon-1 = 1;1 
 ws-icon-2 = 2;2 
-ws-icon-3 = 3;3  
+ws-icon-3 = 3;3 
 ws-icon-4 = 4;4 
 ws-icon-5 = 5;5 ♪
 ws-icon-6 = 6;6
@@ -153,14 +159,14 @@ label-urgent = " %icon% "
 label-urgent-foreground = ${colors.red}
 label-urgent-background = ${colors.blue}
 
-label-separator = //
+label-separator = 
 label-separator-padding = 0
-label-separator-foreground = ${colors.pink}
+label-separator-foreground = ${colors.white}
 label-separator-background = ${colors.background}
 
 [module/cpu]
 type = internal/cpu
-interval = 2
+interval = 4
 format-prefix = "  "
 format-prefix-foreground = ${colors.black}
 format-prefix-background = #029dff
@@ -171,7 +177,7 @@ label-background = #029dff
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = "  "
+format-prefix = "  "
 format-prefix-foreground = ${colors.black}
 format-prefix-background = #027dff
 label = %gb_used%
@@ -192,10 +198,9 @@ label-background = #024dff
 [module/volume]
 type = internal/volume
 
-; mapping = true
 format-volume = <ramp-volume><label-volume>
 
-label-volume = "%percentage%% "
+label-volume = "%percentage%% "
 label-volume-foreground = ${colors.black}
 label-volume-background = #02bdff
 label-muted = " 🔇 "
@@ -212,8 +217,84 @@ ramp-volume-2 = " 🔉 "
 ramp-volume-2-foreground = ${colors.black}
 ramp-volume-2-background = #02bdff
 ramp-volume-3 = " 🔊 "
-ramp-volume-3-foreground = ${colors.red}
+ramp-volume-3-foreground = ${colors.black}
 ramp-volume-3-background = #02bdff
+
+[module/battery]
+type = internal/battery
+full-at = 99
+battery = BAT0
+adapter = ADP1
+poll-interval = 5
+time-format = %H:%M
+
+format-charging = <animation-charging><label-charging>
+format-discharging = <ramp-capacity><label-discharging>
+
+format-full = <ramp-capacity><label-full>
+
+label-charging =  %percentage%%
+label-charging-background = #02ddff
+label-charging-foreground = #000
+label-discharging =  %percentage%%
+label-discharging-background = #02ddff
+label-discharging-foreground = #000
+
+label-full =  100%
+label-full-background = #02ddff
+label-full-foreground = #000000
+
+ramp-capacity-0 =  
+ramp-capacity-0-background = ${colors.red}
+ramp-capacity-0-foreground = #000
+ramp-capacity-1 =  
+ramp-capacity-1-background = #02ddff
+ramp-capacity-1-foreground = #000
+ramp-capacity-2 =  
+ramp-capacity-2-background = #02ddff
+ramp-capacity-2-foreground = #000
+ramp-capacity-3 =  
+ramp-capacity-3-background = #02ddff
+ramp-capacity-3-foreground = #000
+ramp-capacity-4 =  
+ramp-capacity-4-background = #02ddff
+ramp-capacity-4-foreground = #000
+
+bar-capacity-width = 10
+
+animation-charging-0 =  
+animation-charging-0-background = #02ddff
+animation-charging-0-foreground = #000
+animation-charging-1 =  
+animation-charging-1-background = #02ddff
+animation-charging-1-foreground = #000
+animation-charging-2 =  
+animation-charging-2-background = #02ddff
+animation-charging-2-foreground = #000
+animation-charging-3 =  
+animation-charging-3-background = #02ddff
+animation-charging-3-foreground = #000
+animation-charging-4 =  
+animation-charging-4-background = #02ddff
+animation-charging-4-foreground = #000000
+animation-charging-framerate = 500
+
+animation-discharging-0 =  
+animation-discharging-0-background = ${colors.red}
+animation-discharging-0-foreground = #000
+animation-discharging-1 =  
+animation-discharging-1-background = #02ddff
+animation-discharging-1-foreground = #000
+animation-discharging-2 =  
+animation-discharging-2-background = #02ddff
+animation-discharging-2-foreground = #000
+animation-discharging-3 =  
+animation-discharging-3-background = #02ddff
+animation-discharging-3-foreground = #000
+animation-discharging-4 =  
+animation-discharging-4-background = #02ddff
+animation-discharging-4-foreground = #000000
+animation-discharging-framerate = 500
 
 [settings]
 screenchange-reload = true
