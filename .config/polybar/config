@@ -188,7 +188,7 @@ label-separator-background = ${colors.background}
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = "  "
+format-prefix = "  "
 format-prefix-foreground = ${colors.white}
 format-prefix-background = #029dff
 label = %percentage%%
@@ -198,7 +198,7 @@ label-background = #029dff
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = "  "
+format-prefix = "  "
 format-prefix-foreground = ${colors.white}
 format-prefix-background = #027dff
 label = %gb_used%
