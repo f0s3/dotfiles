@@ -118,8 +118,9 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 
 # Open applications on specific workspaces
 assign [class="Chromium"] $ws1
+assign [class="Firefox"] $ws1
 assign [class="Atom"] $ws2
-assign [class="IDEA"] #ws2
+assign [class="IDEA"] $ws2
 assign [class="Telegram"] $ws4
 
 # Open specific applications in floating mode
@@ -156,7 +157,6 @@ for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
 for_window [class="Simple-scan"] floating enable border normal
 for_window [class="(?i)System-config-printer.py"] floating enable border normal
-for_window [class="Skype"] floating enable border normal
 for_window [class="Thus"] floating enable border normal
 for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
@@ -170,23 +170,7 @@ bindsym $mod+Shift+c reload
 
 # restart i3 inplace (preserves your layout/session)
 bindsym $mod+Shift+r restart
-
-# Set shut down, restart and locking features
-bindsym $mod+Shift+e mode "$mode_system"
-set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (p)oweroff
-mode "$mode_system" {
-    bindsym l exec --no-startup-id i3exit lock, mode "default"
-    bindsym s exec --no-startup-id i3exit suspend, mode "default"
-    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
-    bindsym e exec --no-startup-id i3exit logout, mode "default"
-    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
-    bindsym r exec --no-startup-id i3exit reboot, mode "default"
-    bindsym p exec --no-startup-id i3exit shutdown, mode "default"
-
-    # exit system mode: "Enter" or "Escape"
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
+bindsym $mod+Shift+e exec "~/.i3/powermenu"
 
 # Resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"
