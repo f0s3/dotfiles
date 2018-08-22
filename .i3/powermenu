@@ -1,0 +1,20 @@
+#!/bin/bash
+
+res=$(dmenu < ~/.i3/poweroptions)
+
+if [ $res = "lock" ]; then
+	i3exit lock
+fi
+if [ $res = "logout" ]; then
+	i3exit logout
+fi
+if [ $res = "switch user" ]; then
+	i3exit switch_user
+fi
+if [ $res = "reboot" ]; then
+	i3exit reboot 
+fi
+if [ $res = "poweroff" ]; then
+	i3exit shutdown
+fi
+exit 0
