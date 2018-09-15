@@ -153,9 +153,8 @@ label-urgent = " %icon% "
 label-urgent-foreground = ${colors.red}
 label-urgent-background = ${colors.blue}
 
-label-separator = //
 label-separator-padding = 0
-label-separator-foreground = ${colors.pink}
+label-separator-foreground = ${colors.red}
 label-separator-background = ${colors.background}
 
 [module/cpu]
