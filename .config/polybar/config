@@ -20,9 +20,10 @@ background = ${colors.background}
 foreground = ${colors.white}
 font-0 = DejaVuSansMono Nerd Font:pixelsize=10;3
 font-1 = NotoSans Symbols2:pixelsize=10;3
+font-2 = Font Awesome 5 Free:style=Solid
 
 modules-left = i3 arrowi3
-modules-right = arrowtitle title arrowkeyboard xkeyboard arrowbattery battery arrowvolume volume arrowcpu cpu arrowmemory memory arrowdate date
+modules-right = arrowtitle title xkeyboard battery volume arrowcpu cpu arrowmemory memory date
 
 tray-position = right
 tray-background = ${colors.background}
@@ -44,27 +45,6 @@ content-font = 2
 content-foreground = ${colors.black}
 content-background = ${colors.background}
 
-[module/arrowkeyboard]
-type = custom/text
-content = " "
-content-font = 2
-content-foreground = ${colors.violet}
-content-background = ${colors.black}
-
-[module/arrowbattery]
-type = custom/text
-content = " █"
-content-font = 2
-content-foreground = #02ddff
-content-background = ${colors.violet}
-
-[module/arrowvolume]
-type = custom/text
-content = " "
-content-font = 2
-content-foreground = #02bdff
-content-background = #02ddff
-
 [module/arrowcpu]
 type = custom/text
 content = ""
@@ -79,12 +59,6 @@ content-font = 2
 content-foreground = #027dff
 content-background = #0f9dff
 
-[module/arrowdate]
-type = custom/text
-content = " "
-content-font = 2
-content-foreground = #024dff
-content-background = #027dff
 ;-------------------------------------------------------------------------------;
 ;				M O D U L E S													;
 ;-------------------------------------------------------------------------------;
@@ -92,12 +66,12 @@ content-background = #027dff
 type = internal/xkeyboard
 blacklist-0 = num lock
 
-format-prefix = " "
+format-prefix = 
 format-prefix-font = 1
 format-prefix-foreground = ${colors.white}
 format-prefix-background = ${colors.violet}
 
-label-layout = %layout%
+label-layout = %{F#8e1eff B#000000}%{F-}%{F#000000 B#8e1eff} %layout% %{F-}%{F#02ddff B#8e1eff}%{F-}
 label-layout-font = 1
 label-layout-foreground = ${colors.white}
 label-layout-background = ${colors.violet}
@@ -167,7 +141,7 @@ label-separator-background = ${colors.background}
 [module/cpu]
 type = internal/cpu
 interval = 4
-format-prefix = "  "
+format-prefix = "  "
 format-prefix-foreground = ${colors.black}
 format-prefix-background = #029dff
 label = %percentage%%
@@ -189,49 +163,47 @@ type = internal/date
 interval = 1
 
 date = "  %d.%m.%y"
-time= "%H:%M:%S "
+time= "%I:%M:%S %p "
 
-label = %date% %time%
-label-foreground = ${colors.black}
-label-background = #024dff
+label = %{F#024dff B#026dff} %{F-}%{F#000 B#024dff}%date% %time%%{F-}
 
 [module/volume]
 type = internal/volume
 
-format-volume = <ramp-volume><label-volume>
-
-label-volume = "%percentage%% "
+format-volume = %{F#02ddff B#02ddff} %{F-}%{F#02bdff B#02ddff}%{F-}%{F#02bdff B#02bdff} %{F-}<ramp-volume><label-volume>
+format-muted = %{F#02bdff B#02ddff} %{F-}<label-muted>
+label-volume = " %percentage%% "
 label-volume-foreground = ${colors.black}
 label-volume-background = #02bdff
 label-muted = " 🔇 "
 label-muted-foreground = ${colors.black}
 label-muted-background = #02bdff
 
-ramp-volume-0 = " 🔈 "
+ramp-volume-0 = 🔈
 ramp-volume-0-foreground = ${colors.black}
 ramp-volume-0-background = #02bdff
-ramp-volume-1 = " 🔈 "
+ramp-volume-1 = 🔈
 ramp-volume-1-foreground = ${colors.black}
 ramp-volume-1-background = #02bdff
-ramp-volume-2 = " 🔉 "
+ramp-volume-2 = 🔉
 ramp-volume-2-foreground = ${colors.black}
 ramp-volume-2-background = #02bdff
-ramp-volume-3 = " 🔊 "
+ramp-volume-3 = 🔊
 ramp-volume-3-foreground = ${colors.black}
 ramp-volume-3-background = #02bdff
 
 [module/battery]
 type = internal/battery
-full-at = 99
+full-at = 100
 battery = BAT0
 adapter = ADP1
 poll-interval = 5
 time-format = %H:%M
 
-format-charging = <animation-charging><label-charging>
-format-discharging = <ramp-capacity><label-discharging>
+format-charging = %{F#02ddff B#02ddff} %{F-}<animation-charging><label-charging>
+format-discharging = %{F#02ddff B#02ddff} %{F-}<ramp-capacity><label-discharging>
+format-full = %{F#02ddff B#02ddff} %{F-}<ramp-capacity><label-full>
 
-format-full = <ramp-capacity><label-full>
 
 label-charging =  %percentage%%
 label-charging-background = #02ddff
@@ -244,56 +216,54 @@ label-full =  100%
 label-full-background = #02ddff
 label-full-foreground = #000000
 
-ramp-capacity-0 =  
-ramp-capacity-0-background = ${colors.red}
+ramp-capacity-0 = %{F#f00} 
+ramp-capacity-0-background = #02ddff
 ramp-capacity-0-foreground = #000
-ramp-capacity-1 =  
+ramp-capacity-1 =  
 ramp-capacity-1-background = #02ddff
 ramp-capacity-1-foreground = #000
-ramp-capacity-2 =  
+ramp-capacity-2 =  
 ramp-capacity-2-background = #02ddff
 ramp-capacity-2-foreground = #000
-ramp-capacity-3 =  
+ramp-capacity-3 =  
 ramp-capacity-3-background = #02ddff
 ramp-capacity-3-foreground = #000
-ramp-capacity-4 =  
+ramp-capacity-4 =  
 ramp-capacity-4-background = #02ddff
 ramp-capacity-4-foreground = #000
 
 bar-capacity-width = 10
 
-animation-charging-0 =  
+animation-charging-0 =  
 animation-charging-0-background = #02ddff
 animation-charging-0-foreground = #000
-animation-charging-1 =  
+animation-charging-1 =  
 animation-charging-1-background = #02ddff
 animation-charging-1-foreground = #000
-animation-charging-2 =  
+animation-charging-2 =  
 animation-charging-2-background = #02ddff
 animation-charging-2-foreground = #000
-animation-charging-3 =  
+animation-charging-3 =  
 animation-charging-3-background = #02ddff
 animation-charging-3-foreground = #000
-animation-charging-4 =  
+animation-charging-4 =  
 animation-charging-4-background = #02ddff
 animation-charging-4-foreground = #000000
 animation-charging-framerate = 500
 
-animation-discharging-0 =  
-animation-discharging-0-background = ${colors.red}
+animation-discharging-0 =  
+animation-discharging-0-background = #02ddff
 animation-discharging-0-foreground = #000
-animation-discharging-1 =  
+animation-discharging-1 = 
 animation-discharging-1-background = #02ddff
 animation-discharging-1-foreground = #000
-animation-discharging-2 =  
+animation-discharging-2 = 
 animation-discharging-2-background = #02ddff
 animation-discharging-2-foreground = #000
-animation-discharging-3 =  
+animation-discharging-3 = 
 animation-discharging-3-background = #02ddff
 animation-discharging-3-foreground = #000
-animation-discharging-4 =  
-animation-discharging-4-background = #02ddff
-animation-discharging-4-foreground = #000000
+animation-discharging-4 = %{F#000 B#f00}
 animation-discharging-framerate = 500
 
 [settings]
