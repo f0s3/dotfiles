@@ -3,13 +3,10 @@
 res=$(dmenu < ~/.config/i3/poweroptions)
 
 if [ $res = "lock" ]; then
-	i3exit lock
+	i3lock-fancy -f DejaVu-Sans-Mono -- scrot -z
 fi
 if [ $res = "logout" ]; then
 	i3-msg exit
-fi
-if [ $res = "switch user" ]; then
-	i3exit switch_user
 fi
 if [ $res = "reboot" ]; then
 	reboot
