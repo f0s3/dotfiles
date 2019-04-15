@@ -10,17 +10,19 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 alias g='git'
 alias gcl='git clone'
-alias gs='git status'
+alias gst='git status'
 alias gpl='git pull'
-alias gpush='git push'
+alias gplr='git pull -r --rebase=preserve'
+alias gplrs='git stash;git pull -r --rebase=preserve;git stash pop'
 alias gp='git push'
+alias gpf='git push --force'
 alias ga='git add'
 alias gd='git diff'
 alias gc='git commit'
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias gll='git log -1 --stat --pretty=oneline'
 alias gb='git branch'
-alias gss='git stash'
+alias gs='git stash'
 alias gsa='git stash apply'
 alias gsp='git stash pop'
 
