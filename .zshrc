@@ -1,8 +1,19 @@
 export ZSH="/home/f0s3/.oh-my-zsh"
-ZSH_THEME="agnoster"
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_THEME="powerlevel9k/powerlevel9k"
+POWERLEVEL9K_MODE="nerdfont-complete"
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status battery time)
+POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND='white'
+
+
 #DISABLE_AUTO_TITLE="true"
 ENABLE_CORRECTION="true"
-plugins=(git)
+plugins=(
+  git
+  zsh-syntax-highlighting
+)
+
 source $ZSH/oh-my-zsh.sh
 export EDITOR='vim'
 export SSH_KEY_PATH="~/.ssh/rsa_id"
@@ -33,5 +44,13 @@ alias i='pacaur -S'
 
 alias dc='docker-compose'
 
+alias chi='ping 1.1.1.1'
+
+alias wttr='curl wttr.in/Cherkasy'
+
+alias ls="colorls --sd -A"
+
 # added by Anaconda3 installer
 #export PATH="/home/f0s3/anaconda3/bin:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
