@@ -6,7 +6,6 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status battery time)
 POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND='white'
 
-
 #DISABLE_AUTO_TITLE="true"
 ENABLE_CORRECTION="true"
 plugins=(
@@ -40,7 +39,7 @@ alias gsp='git stash pop'
 alias v='vim'
 alias sv='sudo vim'
 
-alias i='pacaur -S'
+alias i='pacaur -S --noconfirm'
 
 alias dc='docker-compose'
 
