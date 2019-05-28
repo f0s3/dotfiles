@@ -5,6 +5,7 @@ red = #f00
 black = #000
 blue = #02adff
 violet = #8e1eff
+
 [bar/f0s3]
 width = 100%
 height = 15
@@ -16,34 +17,25 @@ font-0 = DejaVuSansMono Nerd Font:pixelsize=10;3
 font-1 = NotoSans Symbols2:pixelsize=10;3
 font-2 = Font Awesome 5 Free:style=Solid
 modules-left = i3 arrowi3
-modules-right = arrowtitle title xkeyboard battery volume arrowcpu cpu arrowmemory memory date
+modules-right = arrowtitle title xkeyboard battery volume cpu memory date
 tray-position = right
 tray-background = ${colors.blue}
 tray-padding = 1
+
 [module/arrowi3]
 type = custom/text
 content = ""
 content-font = 2
 content-foreground = ${colors.blue}
 content-background = ${colors.background}
+
 [module/arrowtitle]
 type = custom/text
 content = " "
 content-font = 2
 content-foreground = ${colors.black}
 content-background = ${colors.background}
-[module/arrowcpu]
-type = custom/text
-content = ""
-content-font = 2
-content-foreground = #029dff
-content-background = #02bdff
-[module/arrowmemory]
-type = custom/text
-content = " "
-content-font = 2
-content-foreground = #027dff
-content-background = #0f9dff
+
 [module/xkeyboard]
 type = internal/xkeyboard
 blacklist-0 = num lock
@@ -58,6 +50,7 @@ label-indicator = %{F#06ff47 B#000000}%{F-}%{F#000000 B#06ff47} %name% %{F}%{
 label-indicator-background = ${colors.violet}
 label-indicator-foreground = #000
 format = <label-indicator>%{F#8e1eff B#000000}%{F-}<label-layout>%{F#02ddff B#8e1eff}%{F-}
+
 [module/i3index]
 type = internal/i3
 format = <label-state>
@@ -67,6 +60,7 @@ label-focused-background = ${colors.white}
 label-visible = "%name%"
 label-visible-foreground = ${colors.background}
 label-visible-background = ${colors.white}
+
 [module/i3]
 type = internal/i3
 format = <label-state><label-mode>
@@ -102,35 +96,39 @@ label-separator =
 label-separator-padding = 0
 label-separator-foreground = ${colors.white}
 label-separator-background = ${colors.background}
+
 [module/cpu]
 type = internal/cpu
 interval = 4
-format-prefix = "  "
+format-prefix = %{F#029dff B#02bdff} %{F-} 
 format-prefix-foreground = ${colors.black}
 format-prefix-background = #029dff
-label = %percentage%%
+label = "  %percentage%%"
 label-foreground = ${colors.black}
 label-background = #029dff
+
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = "  "
+format-prefix = %{F#027dff B#029dff} %{F-}
 format-prefix-foreground = ${colors.black}
 format-prefix-background = #027dff
-label = %gb_used%
+label = "  %gb_used%"
 label-foreground = ${colors.black}
 label-background = #027dff
+
 [module/date]
 type = internal/date
 interval = 1
 date = "  %d.%m.%y"
 time= "%I:%M:%S %p "
 label = %{F#024dff B#026dff} %{F-}%{F#000 B#024dff}%date% %time%%{F-}
+
 [module/volume]
 type = internal/volume
 format-volume = %{F#02ddff B#02ddff} %{F-}%{F#02bdff B#02ddff}%{F-}%{F#02bdff B#02bdff} %{F-}<ramp-volume><label-volume>
 format-muted = %{F#02bdff B#02ddff} %{F-}<label-muted>
-label-volume = " %percentage%% "
+label-volume = " %percentage%%"
 label-volume-foreground = ${colors.black}
 label-volume-background = #02bdff
 label-muted = " 🔇 "
@@ -148,6 +146,7 @@ ramp-volume-2-background = #02bdff
 ramp-volume-3 = 🔊
 ramp-volume-3-foreground = ${colors.black}
 ramp-volume-3-background = #02bdff
+
 [module/battery]
 type = internal/battery
 full-at = 100
@@ -213,6 +212,7 @@ animation-discharging-3-background = #02ddff
 animation-discharging-3-foreground = ${colors.black}
 animation-discharging-4 = %{F#000 B#f00}
 animation-discharging-framerate = 500
+
 [module/title]
 type = internal/xwindow
 format-background = ${colors.black}
