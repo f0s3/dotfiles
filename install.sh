@@ -2,7 +2,9 @@
 
 # i3wm polybar dunst dmenu fonts termite
 pacaur -S i3-wm libmpdclient jsoncpp polybar dunst dmenu nerd-fonts-dejavu-complete termite --noconfirm
+
 # login screen
+cp issue /etc/issue
 
 # my i3wm, polybar, termite, dunst configs
 
