@@ -1,20 +1,18 @@
 #!/bin/sh
 
-# i3wm
-
-# polybar
-
-# fonts
-
+# i3wm polybar dunst dmenu fonts termite
+pacaur -S i3-wm libmpdclient jsoncpp polybar dunst dmenu nerd-fonts-dejavu-complete termite --noconfirm
 # login screen
 
-# terminal
+# my i3wm, polybar, termite, dunst configs
 
-# my i3wm, polybar, termite configs
-
-# connmanctl-dmenu
+# connman-dmenu
 
 # i3-autokeymap
 
-# create ~/Projects folder
+# create ~/Projects and ~/Screenshots folders
+mkdir ~/Projects
+mkdir ~/Screenshots
+
+# setup lock screen
 
