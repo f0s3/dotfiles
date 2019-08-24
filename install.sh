@@ -5,16 +5,26 @@ pacaur -S i3-wm libmpdclient jsoncpp polybar dunst dmenu nerd-fonts-dejavu-compl
 
 # login screen
 cp issue /etc/issue
+cp .zprofile ~
 
-# my i3wm, polybar, termite, dunst configs
+# my i3, polybar, termite, dunst configs
+cp .config/i3 ~/.config
+cp .config/polybar ~/.config
+cp .config/termite ~/.config
+cp .config/dunst ~/.config
 
 # connman-dmenu
 
 # i3-autokeymap
 
-# create ~/Projects and ~/Screenshots folders
-mkdir ~/Projects
+# create ~/Screenshots folder
 mkdir ~/Screenshots
 
 # setup lock screen
+
+# battery indicator
+
+# gtk theme
+
+# icon theme
 
