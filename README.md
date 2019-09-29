@@ -43,5 +43,9 @@ Assuming you have arch linux with i3wm + dmenu already set up.
 
 TODO: Needs to be written here
 
+#### Suspend on laptop lid close
+
+Copy `lid-lock.service` file to `/etc/systemd/system` and enable it using `sudo systemctl enable lid-lock`.
+
 ###### Please notice: this documentation is not written yet and will be written with more examples and description later on.
  `master` branch is currently obsolete as i don't use my pc. `laptop` is the one i develop and contribute to.
