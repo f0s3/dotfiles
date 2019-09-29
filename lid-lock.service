@@ -1,0 +1,13 @@
+[Unit]
+Description=i3lock-fancy on lid close
+Before=sleep.target
+
+[Service]
+User=f0s3
+Type=forking
+Environment=DISPLAY=:0
+ExecStart=i3lock-fancy -f DejaVu-Sans-Mono
+
+[Install]
+WantedBy=sleep.target
+
