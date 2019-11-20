@@ -47,6 +47,8 @@ Plug 'zefei/vim-wintabs' "upper tabs bar
 Plug 'zefei/vim-wintabs-powerline' "powerline support of upper tabs bar
 "Plug 'powerline/powerline'
 Plug 'tomtom/tcomment_vim'
+Plug 'xolox/vim-misc' "some stuff needed for sessions
+Plug 'xolox/vim-session' "advanced session manager
 call plug#end()
 
 vmap <C-c> "+yi
@@ -63,4 +65,7 @@ map <C-T>u <Plug>(wintabs_undo)
 map <C-T>o <Plug>(wintabs_only)
 map <C-W>c <Plug>(wintabs_close_window)
 map <C-W>o <Plug>(wintabs_only_window)
+
+nnoremap <F2> :execute 'SaveSession! ' . substitute(getcwd(), '^.*/', '', '')<CR>
+nnoremap <F3> :execute 'OpenSession! ' . substitute(getcwd(), '^.*/', '', '')<CR>
 
