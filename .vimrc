@@ -8,8 +8,10 @@ set list
 syntax on
 set ttimeoutlen=0
 colorscheme onedark
+filetype plugin indent on
 
 map <C-n> :NERDTreeToggle<CR>
+map <C-o> :NERDTreeToggle %<CR>
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -27,32 +29,24 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level=2
 let g:auto_save_in_insert_mode = 0
 let g:deoplete#enable_at_startup = 1
-
-nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
-imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
-nmap <F5> <Plug>(JavaComplete-Imports-Add)
-imap <F5> <Plug>(JavaComplete-Imports-Add)
 "inoremap <C-x> <C-x><C-o>
 
 call plug#begin()
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'mhinz/vim-signify'
+Plug 'scrooloose/nerdtree' "nerdtree vim file manager
+Plug 'mhinz/vim-signify' "show git diff in the editor
+"Plug 'sheerun/vim-polyglot'
+Plug 'valloric/matchtagalways' "shows closing tags for the one that the cursor is on
+Plug 'ap/vim-css-color' "display colors in css files
+Plug 'kshenoy/vim-signature' "marks (like bookmarks)
+Plug 'nathanaelkane/vim-indent-guides' "indent lines
+Plug 'tpope/vim-surround' "add closing parentheses and quotes and all the other kind of stuff
+Plug 'Xuyuanp/nerdtree-git-plugin' "show git files status in nerdtree
+Plug 'dyng/ctrlsf.vim' "global project search
+Plug 'zefei/vim-wintabs' "upper tabs bar
+Plug 'zefei/vim-wintabs-powerline' "powerline support of upper tabs bar
 "Plug 'powerline/powerline'
-"Plug 'tpope/vim-dadbod'
-Plug 'sheerun/vim-polyglot'
-Plug 'valloric/matchtagalways'
-Plug 'ap/vim-css-color'
-Plug 'kshenoy/vim-signature'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'tpope/vim-surround'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-"Plug 'maralla/completor.vim'
-"Plug 'artur-shaik/vim-javacomplete2'
-Plug 'dyng/ctrlsf.vim'
-Plug 'zefei/vim-wintabs'
-Plug 'zefei/vim-wintabs-powerline'
-Plug 'powerline/powerline'
+Plug 'tomtom/tcomment_vim'
 call plug#end()
 
 vmap <C-c> "+yi
