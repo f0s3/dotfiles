@@ -29,6 +29,7 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level=2
 let g:auto_save_in_insert_mode = 0
 let g:deoplete#enable_at_startup = 1
+let g:airline_powerline_fonts = 1
 "inoremap <C-x> <C-x><C-o>
 
 call plug#begin()
@@ -49,6 +50,8 @@ Plug 'zefei/vim-wintabs-powerline' "powerline support of upper tabs bar
 Plug 'tomtom/tcomment_vim'
 Plug 'xolox/vim-misc' "some stuff needed for sessions
 Plug 'xolox/vim-session' "advanced session manager
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 vmap <C-c> "+yi
