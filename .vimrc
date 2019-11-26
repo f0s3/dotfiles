@@ -56,6 +56,7 @@ let g:ctrlp_custom_ignore = 'node_modules\|target/classes'
 let g:session_autosave = 'no'
 let g:xml_syntax_folding=1
 let g:deoplete#enable_at_startup = 1
+let g:ctrlsf_position='bottom'
 "inoremap <C-x> <C-x><C-o>
 
 " plugins
