@@ -94,3 +94,8 @@ map <C-o>a :Bookmark
 map <C-o>o :OpenBookmark 
 map <C-o>c :ClearBookmarks 
 
+if !exists("autocommands_loaded") && argc() == 0
+	let autocommands_loaded = 1
+	call feedkeys("\<F3>")
+endif
+
