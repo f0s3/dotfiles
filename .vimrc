@@ -60,6 +60,7 @@ let g:ctrlsf_position='bottom'
 "inoremap <C-x> <C-x><C-o>
 
 " plugins
+" TODO: change call plug#begin() to call plug#begin('~/.vim/plugins')
 call plug#begin()
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree' " nerdtree file manager
@@ -79,10 +80,17 @@ Plug 'xolox/vim-misc' " some stuff needed for sessions
 Plug 'xolox/vim-session' " advanced session manager
 Plug 'vim-airline/vim-airline' " bottom statusline
 Plug 'vim-airline/vim-airline-themes' " themes for bottom statusline
-Plug 'Shougo/deoplete.nvim'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'Shougo/deoplete.nvim' " autocompletion
+Plug 'roxma/nvim-yarp' " dependency for autocompletion
+Plug 'roxma/vim-hug-neovim-rpc' " dependency for autocompletion
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 call plug#end()
+
+" language servers
+" call plug#begin('~/.vim/servers')
+" Plug 'georgewfraser/java-language-server', {'dir': '~/.vim/servers/java-language-server', 'do': './scripts/link_linux.sh'}
+" Plug 'sourcegraph/javascript-typescript-langserver', {'dir': '~/.vim/servers/javascript-typescript-langserver', 'do': 'npm install;npm run build'}
+" call plug#end()
 
 " needed for Ctrl+x, Ctrl+c, Ctrl+v to work seamlessly in vim
 vmap <C-c> "+yi
@@ -122,4 +130,45 @@ map <C-o>c :ClearBookmarks
 
 " A workaround for vim-session to show the colorscheme properly.
 if argc() == 0 | call feedkeys("\<F3>") | endif
+
+
+
+" This allows LanguageClient to perform operations of modifying multiple buffers like rename.
+" TODO: move this set to the top of the script, where it should be
+set hidden
+
+" This sets language servers to use in intellisense for every language I need.
+" For this to work, you need to install language servers on your machine for
+" every language you want intellisense to work.
+" bash: `npm i -g bash-language-server`
+" java: 
+" js and typescript: 
+" jsx: 
+" vimscript: 
+" apache camel: 
+" xml: 
+" python: 
+" vue: 
+" TODO: move this let to the other variables
+let g:LanguageClient_serverCommands = {
+	\ 'sh': ['bash-language-server', 'start'],
+	\ 'js': ['tcp://127.0.0.1:2089']
+	\ }
+
+" Context menu that allows to do some of the intellisense (smart) operations.
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+
+" You can map any shortcut to any feature from the LanguageClient_contextMenu.
+" Here is the mapping of go to definition function.
+" Possible options:
+" LanguageClient#textDocument_documentSymbol()
+" LanguageClient#textDocument_foldingRange()
+" LanguageClient#textDocument_documentLink()
+" LanguageClient#textDocument_definition() " go to definition
+" LanguageClient#textDocument_declaration()
+" LanguageClient#textDocument_typeDefinition()
+" LanguageClient#textDocument_hover()
+" LanguageClient#textDocument_references() " find all references
+" LanguageClient#textDocument_implementation() " find implementation
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 
