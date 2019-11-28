@@ -83,14 +83,16 @@ Plug 'vim-airline/vim-airline-themes' " themes for bottom statusline
 Plug 'Shougo/deoplete.nvim' " autocompletion
 Plug 'roxma/nvim-yarp' " dependency for autocompletion
 Plug 'roxma/vim-hug-neovim-rpc' " dependency for autocompletion
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
-call plug#end()
 
-" language servers
-" call plug#begin('~/.vim/servers')
-" Plug 'georgewfraser/java-language-server', {'dir': '~/.vim/servers/java-language-server', 'do': './scripts/link_linux.sh'}
-" Plug 'sourcegraph/javascript-typescript-langserver', {'dir': '~/.vim/servers/javascript-typescript-langserver', 'do': 'npm install;npm run build'}
-" call plug#end()
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " language client
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " dependency for LanguageClient
+" Plug 'junegunn/fzf.vim' " dependency for LanguageClient
+
+
+Plug 'sourcegraph/javascript-typescript-langserver', {'dir': '~/.vim/servers/javascript-typescript-langserver', 'do': 'npm install;npm run build'} " js and ts langserver
+" TODO: unhardcode the path!
+Plug 'eclipse/eclipse.jdt.ls', {'dir': '~/.vim/servers/eclipse.jdt.ls', 'do': './mvnw clean verify;sudo cp ~/Projects/dotfiles/jdtls /usr/local/bin' } " java langserver
+call plug#end()
 
 " needed for Ctrl+x, Ctrl+c, Ctrl+v to work seamlessly in vim
 vmap <C-c> "+yi
@@ -118,8 +120,8 @@ map <C-W>o <Plug>(wintabs_only_window)
 
 " Press F2 to save session and F3 to open the session file for current
 " project. Session file name is determined by a project folder name.
-nnoremap <F2> :execute 'SaveSession! ' . substitute(getcwd(), '^.*/', '', '')<CR>
-nnoremap <F3> :execute 'OpenSession! ' . substitute(getcwd(), '^.*/', '', '')<CR>
+nnoremap <F3> :execute 'SaveSession! ' . substitute(getcwd(), '^.*/', '', '')<CR>
+nnoremap <F4> :execute 'OpenSession! ' . substitute(getcwd(), '^.*/', '', '')<CR>
 
 " NERDTree add a bookmark by pressing Ctrl+o and then a and typing the name of the
 " bookmark. Ctrl+o and then o and then a bookmark name to open that bookmark.
@@ -129,10 +131,11 @@ map <C-o>o :OpenBookmark
 map <C-o>c :ClearBookmarks 
 
 " A workaround for vim-session to show the colorscheme properly.
-if argc() == 0 | call feedkeys("\<F3>") | endif
+if argc() == 0 | call feedkeys("\<F4>") | endif
 
-
-
+" ==============================================================================================
+" New stuff
+" ==============================================================================================
 " This allows LanguageClient to perform operations of modifying multiple buffers like rename.
 " TODO: move this set to the top of the script, where it should be
 set hidden
@@ -141,8 +144,8 @@ set hidden
 " For this to work, you need to install language servers on your machine for
 " every language you want intellisense to work.
 " bash: `npm i -g bash-language-server`
-" java: 
-" js and typescript: 
+" java: autoinstalled by this script but need jdtls file to work " TODO:unhardcode this part
+" js and typescript: autoinstalled by this vimrc
 " jsx: 
 " vimscript: 
 " apache camel: 
@@ -152,23 +155,22 @@ set hidden
 " TODO: move this let to the other variables
 let g:LanguageClient_serverCommands = {
 	\ 'sh': ['bash-language-server', 'start'],
-	\ 'js': ['tcp://127.0.0.1:2089']
+	\ 'javascript': ['node', '~/.vim/servers/javascript-typescript-langserver/lib/language-server-stdio.js'],
+	\ 'java': ['/usr/local/bin/jdtls', '-data', getcwd()],
 	\ }
 
 " Context menu that allows to do some of the intellisense (smart) operations.
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 
 " You can map any shortcut to any feature from the LanguageClient_contextMenu.
-" Here is the mapping of go to definition function.
-" Possible options:
-" LanguageClient#textDocument_documentSymbol()
-" LanguageClient#textDocument_foldingRange()
-" LanguageClient#textDocument_documentLink()
-" LanguageClient#textDocument_definition() " go to definition
-" LanguageClient#textDocument_declaration()
-" LanguageClient#textDocument_typeDefinition()
-" LanguageClient#textDocument_hover()
-" LanguageClient#textDocument_references() " find all references
-" LanguageClient#textDocument_implementation() " find implementation
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+" Here is the mapping of most of the LanguageClient features.
+nnoremap <silent> <Esc>lds :call LanguageClient#textDocument_documentSymbol()<CR>
+nnoremap <silent> <Esc>lf :call LanguageClient#textDocument_foldingRange()<CR>
+" nnoremap <silent> <Esc>ldl :call LanguageClient#textDocument_documentLink()<CR>
+nnoremap <silent> <Esc>ldf :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <Esc>ldc :call LanguageClient#textDocument_declaration()<CR>
+nnoremap <silent> <Esc>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+nnoremap <silent> <Esc>lh :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> <Esc>lr :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> <Esc>li :call LanguageClient#textDocument_implementation()<CR>
 
