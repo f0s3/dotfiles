@@ -3,7 +3,7 @@ set encoding=utf-8
 set number
 set tabstop=4
 set noshowmode
-set listchars=tab:▸␣,space:·,eol:↩
+set listchars=tab:▸‒,space:·,eol:↩
 set list
 set ttimeoutlen=0
 set shiftwidth=4
@@ -16,6 +16,7 @@ set foldenable
 set foldlevelstart=10
 set foldnestmax=10
 set foldmethod=indent
+set hidden
 colorscheme space-vim-dark
 
 " NERDTree automation stuff (for it to open only when necessary)
@@ -27,6 +28,8 @@ autocmd CursorHold * update
 
 " This sets the Airline theme to violet to fit the space-vim-theme
 autocmd VimEnter * :execute 'AirlineTheme violet'
+
+" autocmd VimEnter * :execute 'tabr'
 
 " Executes current project session opening on vim enter and initialises an
 " empty session if there is nothing yet. It also saves your session when you
@@ -57,11 +60,28 @@ let g:session_autosave = 'no'
 let g:xml_syntax_folding=1
 let g:deoplete#enable_at_startup = 1
 let g:ctrlsf_position='bottom'
+" This sets language servers to use in intellisense for every language I need.
+" For this to work, you need to install language servers on your machine for
+" every language you want intellisense to work.
+" bash: `npm i -g bash-language-server`
+" java: autoinstalled by this script but need jdtls file to work " TODO:unhardcode this part
+" js and typescript: autoinstalled by this vimrc
+" jsx: 
+" vimscript: 
+" apache camel: 
+" xml: 
+" python: 
+" vue: 
+let g:LanguageClient_serverCommands = {
+	\ 'sh': ['bash-language-server', 'start'],
+	\ 'javascript': ['node', '~/.vim/servers/javascript-typescript-langserver/lib/language-server-stdio.js'],
+	\ 'java': ['/usr/local/bin/jdtls', '-data', getcwd()],
+	\ }
 "inoremap <C-x> <C-x><C-o>
 
 " plugins
-" TODO: change call plug#begin() to call plug#begin('~/.vim/plugins')
-call plug#begin()
+" TODO: change call plug#begin() to call 
+call plug#begin('~/.vim/plugins')
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree' " nerdtree file manager
 Plug 'mhinz/vim-signify' " show git diff in the editor
@@ -80,15 +100,15 @@ Plug 'xolox/vim-misc' " some stuff needed for sessions
 Plug 'xolox/vim-session' " advanced session manager
 Plug 'vim-airline/vim-airline' " bottom statusline
 Plug 'vim-airline/vim-airline-themes' " themes for bottom statusline
+Plug 'mhinz/vim-startify' " start screen when folder opened and no file was selected yet (ex: you did `vim` and want to select a project you want to work on)
+Plug 'tpope/vim-abolish' " smart words transformation (camelize, pythonize, normalize, etc...)
+
 Plug 'Shougo/deoplete.nvim' " autocompletion
 Plug 'roxma/nvim-yarp' " dependency for autocompletion
 Plug 'roxma/vim-hug-neovim-rpc' " dependency for autocompletion
-
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " language client
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " dependency for LanguageClient
 " Plug 'junegunn/fzf.vim' " dependency for LanguageClient
-
-
 Plug 'sourcegraph/javascript-typescript-langserver', {'dir': '~/.vim/servers/javascript-typescript-langserver', 'do': 'npm install;npm run build'} " js and ts langserver
 " TODO: unhardcode the path!
 Plug 'eclipse/eclipse.jdt.ls', {'dir': '~/.vim/servers/eclipse.jdt.ls', 'do': './mvnw clean verify;sudo cp ~/Projects/dotfiles/jdtls /usr/local/bin' } " java langserver
@@ -112,7 +132,7 @@ map <C-n> :NERDTreeToggle<CR>
 " the tab action.
 map <C-H> <Plug>(wintabs_previous)
 map <C-L> <Plug>(wintabs_next)
-map <C-T>c <Plug>(wintabs_close)
+map <C-t>c <Plug>(wintabs_close)
 map <C-T>u <Plug>(wintabs_undo)
 map <C-T>o <Plug>(wintabs_only)
 map <C-W>c <Plug>(wintabs_close_window)
@@ -133,32 +153,6 @@ map <C-o>c :ClearBookmarks
 " A workaround for vim-session to show the colorscheme properly.
 if argc() == 0 | call feedkeys("\<F4>") | endif
 
-" ==============================================================================================
-" New stuff
-" ==============================================================================================
-" This allows LanguageClient to perform operations of modifying multiple buffers like rename.
-" TODO: move this set to the top of the script, where it should be
-set hidden
-
-" This sets language servers to use in intellisense for every language I need.
-" For this to work, you need to install language servers on your machine for
-" every language you want intellisense to work.
-" bash: `npm i -g bash-language-server`
-" java: autoinstalled by this script but need jdtls file to work " TODO:unhardcode this part
-" js and typescript: autoinstalled by this vimrc
-" jsx: 
-" vimscript: 
-" apache camel: 
-" xml: 
-" python: 
-" vue: 
-" TODO: move this let to the other variables
-let g:LanguageClient_serverCommands = {
-	\ 'sh': ['bash-language-server', 'start'],
-	\ 'javascript': ['node', '~/.vim/servers/javascript-typescript-langserver/lib/language-server-stdio.js'],
-	\ 'java': ['/usr/local/bin/jdtls', '-data', getcwd()],
-	\ }
-
 " Context menu that allows to do some of the intellisense (smart) operations.
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 
@@ -166,11 +160,12 @@ nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 " Here is the mapping of most of the LanguageClient features.
 nnoremap <silent> <Esc>lds :call LanguageClient#textDocument_documentSymbol()<CR>
 nnoremap <silent> <Esc>lf :call LanguageClient#textDocument_foldingRange()<CR>
-" nnoremap <silent> <Esc>ldl :call LanguageClient#textDocument_documentLink()<CR>
-nnoremap <silent> <Esc>ldf :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <Esc>ldc :call LanguageClient#textDocument_declaration()<CR>
-nnoremap <silent> <Esc>lt :call LanguageClient#textDocument_typeDefinition()<CR>
-nnoremap <silent> <Esc>lh :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> <Esc>lr :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <Esc>K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> <Esc>lrf :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent> <Esc>li :call LanguageClient#textDocument_implementation()<CR>
+nnoremap <silent> <Esc>rn :call LanguageClient#textDocument_rename()<CR>
+nnoremap <silent> <Esc>rc :call LanguageClient#textDocument_rename({'newName': Abolish.camelcase(expand('<cword>'))})<CR>
+nnoremap <silent> <Esc>rs :call LanguageClient#textDocument_rename({'newName': Abolish.snakecase(expand('<cword>'))})<CR>
+nnoremap <silent> <Esc>ru :call LanguageClient#textDocument_rename({'newName': Abolish.uppercase(expand('<cword>'))})<CR>
 
