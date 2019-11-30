@@ -61,7 +61,7 @@ let g:ctrlsf_position='bottom'
 
 " plugins
 " TODO: change call plug#begin() to call plug#begin('~/.vim/plugins')
-call plug#begin()
+call plug#begin('~/.vim/plugins')
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree' " nerdtree file manager
 Plug 'mhinz/vim-signify' " show git diff in the editor
@@ -159,7 +159,6 @@ let g:LanguageClient_serverCommands = {
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 
 " You can map any shortcut to any feature from the LanguageClient_contextMenu.
-" Here is the mapping of go to definition function.
 " Possible options:
 " LanguageClient#textDocument_documentSymbol()
 " LanguageClient#textDocument_foldingRange()
@@ -170,5 +169,4 @@ nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 " LanguageClient#textDocument_hover()
 " LanguageClient#textDocument_references() " find all references
 " LanguageClient#textDocument_implementation() " find implementation
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 
