@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# install vim if not installed
+if [[ $(sudo pacman -Q vim) != vim* ]]; then
+	sudo pacman -S vim --noconfirm
+fi
+
+# reinstall configuration
+if [[ -d ~/.config/vim ]]; then
+	echo -ne "Existing configuration was found in ~/.config/vim.\nDo you want to reinstall configuration? [y/n]: "
+	read reinstall_option
+	if [[ "$reinstall_option" == "y" ]]; then
+		sudo rm -r ~/.config/vim
+	elif [[ "$reinstall_option" == "n" ]]; then
+		exit
+	fi
+fi
+cp -r .config/vim ~/.config/vim
+mkdir ~/.config/vim/colors
+curl -o ~/.config/vim/colors/space-vim-dark.vim https://raw.githubusercontent.com/liuchengxu/space-vim-dark/master/colors/space-vim-dark.vim
+vim +PlugInstall +qall
+
