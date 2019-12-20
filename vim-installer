@@ -1,22 +1,32 @@
 #!/bin/bash
 
+VIM_FILES_PATH="~/.vim"
+
 # install vim if not installed
 if [[ $(sudo pacman -Q vim) != vim* ]]; then
 	sudo pacman -S vim --noconfirm
 fi
 
 # reinstall configuration
-if [[ -d ~/.config/vim ]]; then
-	echo -ne "Existing configuration was found in ~/.config/vim.\nDo you want to reinstall configuration? [y/n]: "
-	read reinstall_option
-	if [[ "$reinstall_option" == "y" ]]; then
-		sudo rm -r ~/.config/vim
+if [[ -d ~/.vim ]]; then
+	echo -ne "Existing configuration was found in $VIM_FILES_PATH.\nDo you want to reinstall configuration? [Y/n]: "
+	read -s -n1 reinstall_option
+	case $reinstall_option in
+		$'\e') exit;;
+	esac
+	if [[ "$reinstall_option" == "y" ]] ||
+		[[ "$reinstall_option" == "Y" ]] ||
+		[[ "$reinstall_option" == "" ]]; then
+		sudo rm -r ~/.vim
+		sudo rm ~/.vimrc
 	elif [[ "$reinstall_option" == "n" ]]; then
 		exit
 	fi
 fi
-cp -r .config/vim ~/.config/vim
-mkdir ~/.config/vim/colors
-curl -o ~/.config/vim/colors/space-vim-dark.vim https://raw.githubusercontent.com/liuchengxu/space-vim-dark/master/colors/space-vim-dark.vim
+
+mkdir -p ~/.vim/colors
+cp .vimrc ~/
+curl -o ~/.vim/colors/space-vim-dark.vim https://raw.githubusercontent.com/liuchengxu/space-vim-dark/master/colors/space-vim-dark.vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 vim +PlugInstall +qall
 

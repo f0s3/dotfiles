@@ -98,18 +98,16 @@ Plug 'xolox/vim-misc' " some stuff needed for sessions
 Plug 'xolox/vim-session' " advanced session manager
 Plug 'vim-airline/vim-airline' " bottom statusline
 Plug 'vim-airline/vim-airline-themes' " themes for bottom statusline
-Plug 'mhinz/vim-startify' " start screen when folder opened and no file was selected yet (ex: you did `vim` and want to select a project you want to work on)
+" Plug 'mhinz/vim-startify' " start screen when folder opened and no file was selected yet (ex: you did `vim` and want to select a project you want to work on)
 Plug 'tpope/vim-abolish' " smart words transformation (camelize, pythonize, normalize, etc...)
 
 Plug 'Shougo/deoplete.nvim' " autocompletion
 Plug 'roxma/nvim-yarp' " dependency for autocompletion
 Plug 'roxma/vim-hug-neovim-rpc' " dependency for autocompletion
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " language client
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " dependency for LanguageClient
-" Plug 'junegunn/fzf.vim' " dependency for LanguageClient
 Plug 'sourcegraph/javascript-typescript-langserver', {'dir': '~/.config/vim/servers/javascript', 'do': 'npm install;npm run build'} " js and ts langserver
 " TODO: unhardcode the path!
-Plug 'eclipse/eclipse.jdt.ls', {'dir': '~/.config/vim/servers/java', 'do': './mvnw clean verify -Dmaven.test.skip=true;sudo cp ~/Projects/dotfiles/jdtls /usr/local/bin' } " java langserver
+Plug 'eclipse/eclipse.jdt.ls', {'dir': '~/.vim/servers/java', 'do': './mvnw clean verify -Dmaven.test.skip=true;sudo cp ~/Projects/dotfiles/jdtls /usr/local/bin' } " java langserver
 call plug#end()
 
 " needed for Ctrl+x, Ctrl+c, Ctrl+v to work seamlessly in vim
