@@ -1,4 +1,9 @@
 scriptencoding utf-8
+
+""""""""""""""
+"  defaults  "
+""""""""""""""
+
 set encoding=utf-8
 set number
 set tabstop=4
@@ -17,7 +22,12 @@ set foldlevelstart=10
 set foldnestmax=10
 set foldmethod=indent
 set hidden
+
 colorscheme space-vim-dark
+
+""""""""""""""""""
+"  autocommands  "
+""""""""""""""""""
 
 " NERDTree automation stuff (for it to open only when necessary)
 autocmd StdinReadPre * let s:std_in=1
@@ -35,17 +45,20 @@ autocmd VimEnter * :execute 'AirlineTheme violet'
 " empty session if there is nothing yet. It also saves your session when you
 " exit vim if you uncomment the secont line.
 " Note that you must launch vim without params in the project folder for my
-" config (and, in particular, this functionality) to work properly.
+" config (and, in particular, this functionality) to work properly
 autocmd VimEnter * if argc() == 0 | :execute 'OpenSession! ' . substitute(getcwd(), '^.*/', '', '') | endif
 "autocmd VimLeave * if argc() == 0 | :execute 'SaveSession! ' . substitute(getcwd(), '^.*/', '', '') | endif
 
 " Update session file when a file was opened from nerdtree.
-autocmd BufReadPost * if argc() == 0 | call feedkeys("\<F2>") | endif
+autocmd BufReadPost * if argc() == 0 | call feedkeys("\<F3>") | endif
 
 " Add folding to xml documents
 autocmd FileType xml setlocal foldmethod=syntax
 
-" variables
+"""""""""""""""
+"  variables  "
+"""""""""""""""
+
 let g:signify_realtime = 1
 let g:auto_save = 2
 let g:auto_save_events = ["InsertLeave", "TextChanged"]
@@ -58,29 +71,17 @@ let g:airline_powerline_fonts = 1
 let g:ctrlp_custom_ignore = 'node_modules\|target/classes'
 let g:session_autosave = 'no'
 let g:xml_syntax_folding=1
-let g:deoplete#enable_at_startup = 1
 let g:ctrlsf_position='bottom'
 " This sets language servers to use in intellisense for every language I need.
-" For this to work, you need to install language servers on your machine for
-" every language you want intellisense to work.
-" bash: `npm i -g bash-language-server`
-" java: autoinstalled by this script but need jdtls file to work " TODO:unhardcode this part
-" js and typescript: autoinstalled by this vimrc
-" jsx: 
-" vimscript: 
-" apache camel: 
-" xml: 
-" python: 
-" vue: 
-let g:LanguageClient_serverCommands = {
-	\ 'sh': ['bash-language-server', 'start'],
-	\ 'javascript': ['node', '~/.vim/servers/javascript-typescript-langserver/lib/language-server-stdio.js'],
-	\ 'java': ['/usr/local/bin/jdtls', '-data', getcwd()],
-	\ }
+" TODO: apache camel
+" TODO: python
+let g:asmsyntax = 'nasm' " sets correct syntax for .asm files
 "inoremap <C-x> <C-x><C-o>
 
-" plugins
-" TODO: change call plug#begin() to call 
+"""""""""""""
+"  plugins  "
+"""""""""""""
+
 call plug#begin('~/.vim/plugins')
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree' " nerdtree file manager
@@ -90,7 +91,6 @@ Plug 'valloric/matchtagalways' " shows closing tags for the one that the cursor 
 Plug 'ap/vim-css-color' " display colors in css files
 Plug 'kshenoy/vim-signature' " marks (like bookmarks)
 Plug 'nathanaelkane/vim-indent-guides' " indent lines
-Plug 'tpope/vim-surround' " add closing parentheses and quotes and all the other kind of stuff
 Plug 'Xuyuanp/nerdtree-git-plugin' " show git files status in nerdtree
 Plug 'dyng/ctrlsf.vim' " global project search
 Plug 'zefei/vim-wintabs' " upper tabs bar
@@ -100,19 +100,19 @@ Plug 'xolox/vim-misc' " some stuff needed for sessions
 Plug 'xolox/vim-session' " advanced session manager
 Plug 'vim-airline/vim-airline' " bottom statusline
 Plug 'vim-airline/vim-airline-themes' " themes for bottom statusline
-Plug 'mhinz/vim-startify' " start screen when folder opened and no file was selected yet (ex: you did `vim` and want to select a project you want to work on)
-Plug 'tpope/vim-abolish' " smart words transformation (camelize, pythonize, normalize, etc...)
+Plug 'neoclide/coc.nvim', {
+		\'branch': 'release',
+		\'do': ':CocInstall coc-java coc-json coc-css coc-html coc-vetur coc-sh coc-angular coc-tsserver coc-tslint-plugin coc-pairs coc-snippets coc-vimlsp coc-xml'
+	\} " intellisense and code-completion engine
+Plug 'rrethy/vim-illuminate' " highlights for things with the same name
+" Plug 'mhinz/vim-startify' " start screen when folder opened and no file was selected yet (ex: you did `vim` and want to select a project you want to work on) TODO: integrate me!
+" Plug 'tpope/vim-abolish' " smart words transformation (camelize, pythonize, normalize, etc...) TODO: integrate me!
 
-Plug 'Shougo/deoplete.nvim' " autocompletion
-Plug 'roxma/nvim-yarp' " dependency for autocompletion
-Plug 'roxma/vim-hug-neovim-rpc' " dependency for autocompletion
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " language client
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " dependency for LanguageClient
-" Plug 'junegunn/fzf.vim' " dependency for LanguageClient
-Plug 'sourcegraph/javascript-typescript-langserver', {'dir': '~/.vim/servers/javascript-typescript-langserver', 'do': 'npm install;npm run build'} " js and ts langserver
-" TODO: unhardcode the path!
-Plug 'eclipse/eclipse.jdt.ls', {'dir': '~/.vim/servers/eclipse.jdt.ls', 'do': './mvnw clean verify;sudo cp ~/Projects/dotfiles/jdtls /usr/local/bin' } " java langserver
 call plug#end()
+
+""""""""""""""
+"  mappings  "
+""""""""""""""
 
 " needed for Ctrl+x, Ctrl+c, Ctrl+v to work seamlessly in vim
 vmap <C-c> "+yi
@@ -150,22 +150,41 @@ map <C-o>a :Bookmark
 map <C-o>o :OpenBookmark 
 map <C-o>c :ClearBookmarks 
 
-" A workaround for vim-session to show the colorscheme properly.
+" nnoremap <silent> <leader>r :call LanguageClient#textDocument_rename()<CR>
+" nnoremap <silent> <leader>rc :call LanguageClient#textDocument_rename({'newName': Abolish.camelcase(expand('<cword>'))})<CR>
+" nnoremap <silent> <leader>rs :call LanguageClient#textDocument_rename({'newName': Abolish.snakecase(expand('<cword>'))})<CR>
+" nnoremap <silent> <leader>ru :call LanguageClient#textDocument_rename({'newName': Abolish.uppercase(expand('<cword>'))})<CR>
+
+""""""""""""""""""""
+"  coc extensions  "
+""""""""""""""""""""
+" :CocInstall coc-java coc-json coc-css coc-html coc-vetur coc-sh coc-angular coc-tsserver coc-tslint-plugin coc-pairs coc-snippets
+
+"""""""""""""""""""""""""""
+"  workarounds and fixes  "
+"""""""""""""""""""""""""""
+
+" A workaround for vim-session to show the colorscheme properly
 if argc() == 0 | call feedkeys("\<F4>") | endif
 
-" Context menu that allows to do some of the intellisense (smart) operations.
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-
-" You can map any shortcut to any feature from the LanguageClient_contextMenu.
-" Here is the mapping of most of the LanguageClient features.
-nnoremap <silent> <Esc>lds :call LanguageClient#textDocument_documentSymbol()<CR>
-nnoremap <silent> <Esc>lf :call LanguageClient#textDocument_foldingRange()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <Esc>K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> <Esc>lrf :call LanguageClient#textDocument_references()<CR>
-nnoremap <silent> <Esc>li :call LanguageClient#textDocument_implementation()<CR>
-nnoremap <silent> <Esc>rn :call LanguageClient#textDocument_rename()<CR>
-nnoremap <silent> <Esc>rc :call LanguageClient#textDocument_rename({'newName': Abolish.camelcase(expand('<cword>'))})<CR>
-nnoremap <silent> <Esc>rs :call LanguageClient#textDocument_rename({'newName': Abolish.snakecase(expand('<cword>'))})<CR>
-nnoremap <silent> <Esc>ru :call LanguageClient#textDocument_rename({'newName': Abolish.uppercase(expand('<cword>'))})<CR>
+" what IDEA does:
+" [editor] nice syntax highlighting for every type of file
+" [editor] vcs (git) integration
+" [editor] go through functions
+" [editor] search in current file (allows regex to be used, case-(in)sensitive search)
+" [editor] unused imports, missing imports fix
+" [editor] highlight syntax errors, non-runtime errors
+" [editor] smart autocompletion [done]
+" [editor] go to definition
+" [editor] show usages
+" [editor] code folding
+" [editor] default settings for different file extensions
+" [editor] underline(underwave) typos, warnings, errors(syntax errors, non-runtime errors)
+" [editor] autoclose brackets, parentheses, and place cursor in them in insert mode [done]
+" [file explorer] with all file operations (create new +types, rename/move file, delete, git integration, module recognition)
+" [search] in project (allows regex to be used, case-(in)sensitive search)
+" [search] for anything in project tree
+" [search] and replace in file (allows regex to be used, case-(in)sensitive search)
+" [miscellaneous] clipboard buffer
+" [miscellaneous] shared clipboard for all searches and the editor
 
