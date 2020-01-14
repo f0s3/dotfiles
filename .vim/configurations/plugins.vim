@@ -10,7 +10,7 @@ Plug 'mhinz/vim-signify' " show git diff in the editor
 Plug 'valloric/matchtagalways' " shows closing tags for the one that the cursor is on
 Plug 'ap/vim-css-color' " display colors in css files
 Plug 'kshenoy/vim-signature' " marks (like bookmarks)
-Plug 'nathanaelkane/vim-indent-guides' " indent lines
+Plug 'Yggdroot/indentLine' " indent lines
 Plug 'Xuyuanp/nerdtree-git-plugin' " show git files status in nerdtree
 Plug 'dyng/ctrlsf.vim' " global project search
 Plug 'zefei/vim-wintabs' " upper tabs bar
