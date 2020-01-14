@@ -55,6 +55,9 @@ autocmd BufReadPost * if argc() == 0 | call feedkeys("\<F3>") | endif
 " Add folding to xml documents
 autocmd FileType xml setlocal foldmethod=syntax
 
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guifg=#606060
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guifg=#708070
+
 """""""""""""""
 "  variables  "
 """""""""""""""
@@ -65,7 +68,7 @@ let g:auto_save_events = ["InsertLeave", "TextChanged"]
 let NERDTreeMinimalUI = 1
 let NERDTreeAutoDeleteBuffer = 1
 let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_start_level=2
+let g:indent_guides_start_level=1
 let g:auto_save_in_insert_mode = 0
 let g:airline_powerline_fonts = 1
 let g:ctrlp_custom_ignore = 'node_modules\|target/classes'
@@ -77,6 +80,7 @@ let g:ctrlsf_position='bottom'
 " TODO: python
 let g:asmsyntax = 'nasm' " sets correct syntax for .asm files
 "inoremap <C-x> <C-x><C-o>
+let g:indent_guides_auto_colors = 0
 
 """""""""""""
 "  plugins  "
@@ -86,7 +90,7 @@ call plug#begin('~/.vim/plugins')
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree' " nerdtree file manager
 Plug 'mhinz/vim-signify' " show git diff in the editor
-"Plug 'sheerun/vim-polyglot'
+"Plug 'sheerun/vim-polyglot' " syntax highlighting for omnisharp
 Plug 'valloric/matchtagalways' " shows closing tags for the one that the cursor is on
 Plug 'ap/vim-css-color' " display colors in css files
 Plug 'kshenoy/vim-signature' " marks (like bookmarks)
@@ -102,12 +106,13 @@ Plug 'vim-airline/vim-airline' " bottom statusline
 Plug 'vim-airline/vim-airline-themes' " themes for bottom statusline
 Plug 'neoclide/coc.nvim', {
 		\'branch': 'release',
-		\'do': ':CocInstall coc-java coc-json coc-css coc-html coc-vetur coc-sh coc-angular coc-tsserver coc-tslint-plugin coc-pairs coc-snippets coc-vimlsp coc-xml'
+		\'do': ':CocInstall coc-java coc-json coc-css coc-html coc-vetur coc-sh coc-angular coc-tsserver coc-tslint-plugin coc-pairs coc-snippets coc-vimlsp coc-xml coc-omnisharp coc-ultisnips coc-neosnippet'
 	\} " intellisense and code-completion engine
 Plug 'rrethy/vim-illuminate' " highlights for things with the same name
 " Plug 'mhinz/vim-startify' " start screen when folder opened and no file was selected yet (ex: you did `vim` and want to select a project you want to work on) TODO: integrate me!
 " Plug 'tpope/vim-abolish' " smart words transformation (camelize, pythonize, normalize, etc...) TODO: integrate me!
-
+Plug 'tpope/vim-sleuth' " adaptive indentation for different files
+Plug 'OrangeT/vim-csharp' " C# advanced syntax highlighting and Razor support
 call plug#end()
 
 """"""""""""""
@@ -150,15 +155,50 @@ map <C-o>a :Bookmark
 map <C-o>o :OpenBookmark 
 map <C-o>c :ClearBookmarks 
 
+" Contextual code actions (uses fzf, CtrlP or unite.vim when available)
+nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
+" Run code actions with text selected in visual mode to extract method
+xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
+
+""""""""""""""""""
+"  coc mappings  "
+""""""""""""""""""
+
+" Show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" fill function params when autocompleting
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :
+                                           \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 " nnoremap <silent> <leader>r :call LanguageClient#textDocument_rename()<CR>
 " nnoremap <silent> <leader>rc :call LanguageClient#textDocument_rename({'newName': Abolish.camelcase(expand('<cword>'))})<CR>
 " nnoremap <silent> <leader>rs :call LanguageClient#textDocument_rename({'newName': Abolish.snakecase(expand('<cword>'))})<CR>
 " nnoremap <silent> <leader>ru :call LanguageClient#textDocument_rename({'newName': Abolish.uppercase(expand('<cword>'))})<CR>
-
-""""""""""""""""""""
-"  coc extensions  "
-""""""""""""""""""""
-" :CocInstall coc-java coc-json coc-css coc-html coc-vetur coc-sh coc-angular coc-tsserver coc-tslint-plugin coc-pairs coc-snippets
 
 """""""""""""""""""""""""""
 "  workarounds and fixes  "
@@ -167,7 +207,7 @@ map <C-o>c :ClearBookmarks
 " A workaround for vim-session to show the colorscheme properly
 if argc() == 0 | call feedkeys("\<F4>") | endif
 
-" what IDEA does:
+" what IDE does:
 " [editor] nice syntax highlighting for every type of file
 " [editor] vcs (git) integration
 " [editor] go through functions
