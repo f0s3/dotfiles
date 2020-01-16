@@ -1,7 +1,3 @@
-"""""""""""""""
-"  variables  "
-"""""""""""""""
-
 let g:signify_realtime = 1
 let g:auto_save = 2
 let g:auto_save_events = ["InsertLeave", "TextChanged"]

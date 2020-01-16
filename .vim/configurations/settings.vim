@@ -1,7 +1,3 @@
-""""""""""""""
-"  settings  "
-""""""""""""""
-
 set encoding=utf-8
 set number
 set tabstop=4

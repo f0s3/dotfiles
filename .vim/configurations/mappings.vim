@@ -1,7 +1,3 @@
-""""""""""""""
-"  mappings  "
-""""""""""""""
-
 " needed for Ctrl+x, Ctrl+c, Ctrl+v to work seamlessly in vim
 vmap <C-c> "+yi
 vmap <C-x> "+c
@@ -46,6 +42,11 @@ nmap <leader>rn <Plug>(coc-rename)
 
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :
                                            \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Seach in file highlighting
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 
 " nnoremap <silent> <leader>r :call LanguageClient#textDocument_rename()<CR>
 " nnoremap <silent> <leader>rc :call LanguageClient#textDocument_rename({'newName': Abolish.camelcase(expand('<cword>'))})<CR>
