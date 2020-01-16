@@ -1,22 +1,22 @@
 let g:coc_global_extensions = [
-\ 'coc-java', " Java
-\ 'coc-omnisharp', " C#
-\ 'coc-angular', " Angular
-\ 'coc-vetur', " Vue.js
-\ 'coc-tsserver', " JS and TS
-\ 'coc-tslint-plugin', " TSLint
-\ 'coc-css', " CSS
-\ 'coc-html', " HTML
-\ 'coc-sh', " ShellScript
-\ 'coc-vimlsp', " VimScript
-\ 'coc-json', " JSON
-\ 'coc-xml', " XML
-\ 'coc-sql', " SQL
-\ 'coc-pairs', " auto-pairs for () {} [] '' `` \"\"
-\ 'coc-snippets', " snippets
-\ 'coc-neosnippet', " snippets
-\ 'coc-ultisnips', " snippets
-\ 'coc-stylelint' " linting for CSS, SCSS, LESS, PostCSS, Vue.js
+\ 'coc-java',
+\ 'coc-omnisharp',
+\ 'coc-angular',
+\ 'coc-vetur',
+\ 'coc-tsserver',
+\ 'coc-tslint-plugin',
+\ 'coc-css',
+\ 'coc-html',
+\ 'coc-sh',
+\ 'coc-vimlsp',
+\ 'coc-json',
+\ 'coc-xml',
+\ 'coc-sql',
+\ 'coc-pairs',
+\ 'coc-snippets',
+\ 'coc-neosnippet',
+\ 'coc-ultisnips',
+\ 'coc-stylelint'
 \ ]
 
 call plug#begin('~/.vim/plugins')
