@@ -48,6 +48,9 @@ map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
+" Run a shell in split window
+  map <C-S-t> :below terminal<CR>
+
 " nnoremap <silent> <leader>r :call LanguageClient#textDocument_rename()<CR>
 " nnoremap <silent> <leader>rc :call LanguageClient#textDocument_rename({'newName': Abolish.camelcase(expand('<cword>'))})<CR>
 " nnoremap <silent> <leader>rs :call LanguageClient#textDocument_rename({'newName': Abolish.snakecase(expand('<cword>'))})<CR>

@@ -43,6 +43,7 @@ Plug 'haya14busa/incsearch.vim' " search highlighting
 Plug 'yuezk/vim-js' " js syntax highlighting
 Plug 'maxmellon/vim-jsx-pretty' " jsx support
 Plug 'OrangeT/vim-csharp' " C# errors and syntax highlighting support
+Plug 'vim-scripts/Conque-Shell' " run shell commands in vim split window
 call plug#end()
 
 
