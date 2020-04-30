@@ -125,7 +125,7 @@ time= "%I:%M:%S %p "
 label = %{F#024dff B#026dff} %{F-}%{F#000 B#024dff}%date% %time%%{F-}
 
 [module/volume]
-type = internal/volume
+type = internal/pulseaudio
 format-volume = %{F#02ddff B#02ddff} %{F-}%{F#02bdff B#02ddff}%{F-}%{F#02bdff B#02bdff} %{F-}<ramp-volume><label-volume>
 format-muted = %{F#02bdff B#02ddff} %{F-}<label-muted>
 label-volume = " %percentage%%"
