@@ -8,10 +8,7 @@ cp issue /etc/issue
 cp .zprofile ~
 
 # my i3, polybar, termite, dunst configs
-cp .config/i3 ~/.config
-cp .config/polybar ~/.config
-cp .config/termite ~/.config
-cp .config/dunst ~/.config
+cp .config/* ~/.config
 
 # connman-dmenu
 
