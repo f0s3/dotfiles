@@ -1,0 +1,135 @@
+[colors]
+background = #222d32
+separator = #415660
+white = #ffffff
+red = #ff0000
+black = #000000
+blue = #02adff
+violet = #8e1eff
+
+[bar/f0s3]
+width = 100%
+height = 15
+fixed-center = false 
+#monitor = LVDS1
+background = ${colors.background}
+foreground = ${colors.white}
+font-0 = DejaVuSansM Nerd Font Mono:pixelsize=10;3
+font-1 = NotoSans Symbols2:pixelsize=10;3
+font-2 = Font Awesome 5 Free:style=Solid
+modules-left = i3 arrowi3
+modules-right = arrowtitle title xkeyboard volume memory date
+tray-position = right
+tray-background = ${colors.background}
+
+[module/i3]
+type = internal/i3
+format = <label-state><label-mode>
+index-sort = false
+enable-click = true
+enable-scroll = false
+ws-icon-0 = 10;0[]
+ws-icon-1 = 1;1 
+ws-icon-2 = 2;2 
+ws-icon-3 = 3;3 
+ws-icon-4 = 4;4 
+ws-icon-5 = 5;5 
+ws-icon-6 = 6;6
+ws-icon-7 = 7;7
+ws-icon-8 = 8;8
+ws-icon-9 = 9;9
+pin-workspaces = true 
+label-mode = %{F#000 B#8e1eff}%{F-} %mode% %{F#8e1eff B#000}%{F-}
+label-mode-background = ${colors.violet}
+label-focused = %{F#000 B#8e1eff}%{F-} %icon% %{F#8e1eff B#000}%{F-}
+label-focused-foreground = ${colors.white}
+label-focused-background = ${colors.black}
+label-visible = " %icon% "
+label-visible-foreground = ${colors.white}
+label-visible-background = ${colors.black}
+label-unfocused = "  %icon%  "
+label-unfocused-foreground = ${colors.white}
+label-unfocused-background = ${colors.black}
+label-urgent = %{F#000 B#8e1eff}%{F-} %{F#FF6d34}%icon%%{F-} %{F#8e1eff B#000}%{F-}
+label-urgent-background = ${colors.violet}
+label-separator = 
+label-separator-padding = 0
+label-separator-foreground = ${colors.white}
+label-separator-background = ${colors.background}
+
+[module/arrowi3]
+type = custom/text
+content = ""
+content-font = 2
+content-foreground = ${colors.black}
+content-background = ${colors.background}
+
+
+[module/arrowtitle]
+type = custom/text
+content = " "
+content-font = 2
+content-foreground = ${colors.black}
+content-background = ${colors.background}
+
+[module/title]
+type = internal/xwindow
+format-background = ${colors.black}
+format-foreground = ${colors.white}
+format-padding = 1
+label-maxlen = 60
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+format-prefix-font = 1
+format-prefix-foreground = ${colors.white}
+format-prefix-background = ${colors.violet}
+label-layout = %{F#fff B#8e1eff} %layout% %{F-}
+label-layout-font = 1
+label-layout-foreground = ${colors.white}
+label-layout-background = ${colors.violet}
+label-indicator = "%{F#415660 B#000000}%{F-} %{F#00f043}%name%%{F-} "
+format = <label-indicator>%{F#8e1eff B#000000}%{F-}<label-layout>%{F#222d32 B#8e1eff}%{F-}
+
+[module/volume]
+type = internal/volume
+format-volume = %{F#415660 B#222d32}%{F-}<ramp-volume><label-volume>
+; TODO: add <label-volume> somehow
+; format-muted = %{F#415660 B#222d32}  %{F-}<label-muted>
+label-volume = " %percentage%% "
+label-volume-foreground = ${colors.white}
+label-volume-background = ${colors.background}
+label-muted = " 🔇 "
+label-muted-foreground = ${colors.white}
+label-muted-background = ${colors.background}
+ramp-volume-0 = 🔈
+ramp-volume-0-foreground = ${colors.white}
+ramp-volume-0-background = ${colors.background}
+ramp-volume-1 = 🔈
+ramp-volume-1-foreground = ${colors.white}
+ramp-volume-1-background = ${colors.background}
+ramp-volume-2 = 🔉
+ramp-volume-2-foreground = ${colors.white}
+ramp-volume-2-background = ${colors.background}
+ramp-volume-3 = 🔊
+ramp-volume-3-foreground = ${colors.white}
+ramp-volume-3-background = ${colors.background}
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = %{F#415660 B#222d32}%{F-}
+format-prefix-foreground = ${colors.black}
+format-prefix-background = #027dff
+label = " %gb_used%"
+label-foreground = ${colors.white}
+label-background = #222d32
+
+[module/date]
+type = internal/date
+interval = 1
+date = "%d.%m"
+time= "%I:%M:%S %p "
+label = %{F#415660 B#222d32} %{F-}%{F#fff B#222d32} %date% %time%%{F-}
+

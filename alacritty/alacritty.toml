@@ -1,0 +1,96 @@
+shell="/usr/bin/zsh"
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.normal]
+black = "#21222c"
+red = "#ff5555"
+green = "#50fa7b"
+yellow = "#f1fa8c"
+blue = "#bd93f9"
+magenta = "#ff79c6"
+cyan = "#8be9fd"
+white = "#f8f8f2"
+
+[colors.bright]
+black = "#6272a4"
+red = "#ff6e6e"
+green = "#69ff94"
+yellow = "#ffffa5"
+blue = "#d6acff"
+magenta = "#ff92df"
+cyan = "#a4ffff"
+white = "#ffffff"
+
+[colors.cursor]
+cursor = "CellForeground"
+text = "CellBackground"
+
+#change cursor type Beam,Block,Underline
+[cursor]
+style = "Underline"
+
+# [colors.dim]
+# black= "#131415"
+# red= "#864343"
+# green= "#777c44"
+# yellow= "#9e824c"
+# blue= "#556a7d"
+# magenta= "#75617b"
+# cyan= "#5b7d78"
+# white= "#828482"
+
+[colors.primary]
+background = "#262A33"
+foreground = "#f8f8f2"
+bright_foreground = "#ffffff"
+
+[colors.selection]
+text = "CellForeground"
+background = "#44475a"
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 12
+
+[font.bold]
+family = "DejaVuSansM Nerd Font Mono"
+style = "Bold"
+
+[font.bold_italic]
+family = "DejaVuSansM Nerd Font Mono"
+style = "Bold Italic"
+
+[font.italic]
+family = "DejaVuSansM Nerd Font Mono"
+style = "Italic"
+
+[font.normal]
+family = "DejaVuSansM Nerd Font Mono"
+style = "Regular"
+
+[font.offset]
+x = 0
+y = 0
+
+[scrolling]
+history = 5000
+multiplier = 3
+
+#startup modes:Windowed, Maximized, Fullscreen
+[window]
+dynamic_padding = false
+opacity = 1.0
+title = "Alacritty"
+startup_mode = "Windowed"
+
+[window.class]
+general = "Alacritty"
+instance = "Alacritty"
+
+[window.padding]
+x = 0
+y = 0
