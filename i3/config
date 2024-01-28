@@ -48,8 +48,7 @@ bindsym $mod+e layout toggle split
 floating_modifier $mod
 bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
-bindsym $mod+d exec --no-startup-id xkblayout-state set 0 && dmenu_run -sb '#8e1eff' -sf '#ffffff' -nb '#222d32' -nf '#ffffff'
-# bindsym $mod+d exec --no-startup-id dmenu_recency -nb '#222D32' -sf '#eeeeee' -sb '#02A7F6' -nf '#bbbbbb'
+bindsym $mod+d exec --no-startup-id exec ~/.config/i3/dmenu.sh
 bindsym Print exec --no-startup-id scrot "%Y-%m-%d_$wx$h_%H:%M:%S.png" -e 'mv $f ~/Screenshots' && xclip -sel clip -t image/png -i ~/Screenshots/$(ls -1 -t Screenshots | head -1)
 bindsym $mod+Print --release exec --no-startup-id scrot -s "%Y-%m-%d_$wx$h_%H:%M:%S.png" -e 'mv $f ~/Screenshots' && xclip -sel clip -t image/png -i ~/Screenshots/$(ls -1 -t Screenshots | head -1)
 bindsym $mod+Left focus left
@@ -107,7 +106,7 @@ mode "resize" {
         bindsym Right resize grow width 5 px or 5 ppt
         bindsym Escape mode "default"
 }
-bindsym fn+F2 exec amixer set Master 2%-
-bindsym fn+F3 exec amixer set Master 2%+
-bindsym fn+F4 exec amixer set Master toggle
+# bindsym fn+F2 exec amixer set Master 2%-
+#bindsym fn+F3 exec amixer set Master 2%+
+#bindsym fn+F4 exec amixer set Master toggle
 bindsym $mod+F4 exec amixer set Capture toggle

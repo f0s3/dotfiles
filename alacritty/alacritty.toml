@@ -54,7 +54,7 @@ background = "#44475a"
 TERM = "xterm-256color"
 
 [font]
-size = 12
+size = 13
 
 [font.bold]
 family = "DejaVuSansM Nerd Font Mono"
@@ -73,7 +73,7 @@ family = "DejaVuSansM Nerd Font Mono"
 style = "Regular"
 
 [font.offset]
-x = 0
+x = 1
 y = 0
 
 [scrolling]
@@ -92,5 +92,5 @@ general = "Alacritty"
 instance = "Alacritty"
 
 [window.padding]
-x = 0
+x = 1
 y = 0
