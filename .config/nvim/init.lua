@@ -31,7 +31,21 @@ vim.wo.number = true
 require("lazy").setup({
   { "nobbmaestro/nvim-andromeda", dependencies = { "tjdevries/colorbuddy.nvim", branch = "dev" } },
   { "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
-  { "lewis6991/gitsigns.nvim" }
+  { "lewis6991/gitsigns.nvim" },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function () 
+      local configs = require("nvim-treesitter.configs")
+
+      configs.setup({
+          ensure_installed = { "bash", "c", "c_sharp", "cmake", "comment", "cpp", "css", "csv", "diff", "disassembly", "dockerfile", "git_config", "git_rebase", "gitcommit", "gitignore", "html", "http", "java", "javascript", "jsdoc", "json", "json5", "lua", "luadoc", "luap", "make", "markdown", "markdown_inline", "nasm", "objc", "objdump", "passwd", "pem", "php", "phpdoc", "pod", "printf", "pug", "regex", "requirements", "scss", "sql", "ssh_config", "tsx", "vim", "vimdoc", "vue", "xml", "yaml" },
+          sync_install = false,
+          highlight = { enable = true },
+          indent = { enable = true },  
+        })
+    end
+  }
 })
 
 require("andromeda").setup({
@@ -44,5 +58,4 @@ vim.cmd[[set t_Co=256]]
 
 require("lualine").setup()
 require("gitsigns").setup()
-
 
