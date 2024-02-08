@@ -34,7 +34,7 @@ for_window [class="Pavucontrol"] floating enable
 #exec --no-startup-id xautolock -time 40 -locker blurlock
 #exec_always --no-startup-id ff-theme-util
 #exec_always --no-startup-id fix_xcursor
-exec_always --no-startup-id "setxkbmap -model pc105 -layout us,ru -option grp:win_space_toggle"
+exec_always --no-startup-id "setxkbmap -model pc105 -layout us,ru,ua -option grp:win_space_toggle"
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # TODO: configure dunst
 #exec_always --no-startup-id dunst
