@@ -3,7 +3,7 @@
 ### install dependencies
 
 ```
-yay -S ttf-dejavu-nerd git stow xkblayout-state scrot dmenu xclip alacritty zsh curl tmux neovim --noconfirm && fc-cache -fv
+yay -S ttf-dejavu-nerd git ssh stow xkblayout-state scrot dmenu xclip alacritty zsh curl tmux neovim --noconfirm && fc-cache -fv
 ```
 
 ### install dotfiles and tmux plugins
@@ -23,3 +23,4 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 ```
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions; git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting; git clone https://github.com/jirutka/zsh-shift-select.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-shift-select
 ```
+
