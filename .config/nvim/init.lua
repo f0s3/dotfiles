@@ -28,11 +28,10 @@ vim.opt.expandtab = true
 vim.wo.number = true
 
 require("lazy").setup({
-{
-	"nobbmaestro/nvim-andromeda",
-	dependencies = { "tjdevries/colorbuddy.nvim", branch = "dev" }
+  {
+  	"nobbmaestro/nvim-andromeda",
+	  dependencies = { "tjdevries/colorbuddy.nvim", branch = "dev" }
 	}
-
 })
 
 require("andromeda").setup({
