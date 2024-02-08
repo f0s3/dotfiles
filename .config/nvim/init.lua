@@ -29,14 +29,9 @@ vim.opt.expandtab = true
 vim.wo.number = true
 
 require("lazy").setup({
-  {
-  	"nobbmaestro/nvim-andromeda",
-	  dependencies = { "tjdevries/colorbuddy.nvim", branch = "dev" }
-	},
-  {
-    'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' }
-  }
+  { "nobbmaestro/nvim-andromeda", dependencies = { "tjdevries/colorbuddy.nvim", branch = "dev" } },
+  { "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
+  { "lewis6991/gitsigns.nvim" }
 })
 
 require("andromeda").setup({
@@ -47,5 +42,7 @@ require("andromeda").setup({
 vim.cmd[[set background=dark]]
 vim.cmd[[set t_Co=256]]
 
-require('lualine').setup()
+require("lualine").setup()
+require("gitsigns").setup()
+
 
