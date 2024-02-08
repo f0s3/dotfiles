@@ -17,6 +17,7 @@ vim.opt.laststatus = 2
 vim.opt.autowrite = true
 vim.opt.cursorline = true
 vim.opt.autoread = true
+vim.opt.showmode = false
 
 -- use spaces for tabs and whatnot
 vim.opt.tabstop = 2
@@ -31,7 +32,11 @@ require("lazy").setup({
   {
   	"nobbmaestro/nvim-andromeda",
 	  dependencies = { "tjdevries/colorbuddy.nvim", branch = "dev" }
-	}
+	},
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' }
+  }
 })
 
 require("andromeda").setup({
@@ -41,4 +46,6 @@ require("andromeda").setup({
 
 vim.cmd[[set background=dark]]
 vim.cmd[[set t_Co=256]]
+
+require('lualine').setup()
 
