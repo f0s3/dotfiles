@@ -6,7 +6,7 @@ new_window pixel 1
 new_float normal
 hide_edge_borders none
 font pango:DejaVu Sans Mono for Powerline 10
-workspace_auto_back_and_forth yes
+workspace_auto_back_and_forth no
 set $ws1 1
 set $ws2 2
 set $ws3 3
