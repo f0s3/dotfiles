@@ -62,10 +62,13 @@ alias v='nvim'
 
 alias lg='lazygit'
 
-alias i='yay -S'
+alias i='yay -S --noconfirm --answerdiff=None'
 
-# cd ~
+mode() {
+  sudo nbfc set -s $2
+  nohup sh -c "$HOME/.config/openrgb/launch.sh $1" &> /dev/null & disown
+}
 
-# ssh reset
-# alias sr='ssh-add ~/.ssh/LightsailDefaultKeyPair-eu-central-1.pem && ssh-add ~/.ssh/pleso && ssh-add ~/.ssh/personal'
+alias apex='mode apex 100'
+alias linux='mode linux 30'
 

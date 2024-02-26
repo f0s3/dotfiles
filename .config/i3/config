@@ -36,6 +36,9 @@ for_window [class="Pavucontrol"] floating enable
 #exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id "setxkbmap -model pc105 -layout us,ru,ua -option grp:win_space_toggle"
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id "$HOME/.config/openrgb/launch.sh linux"
+exec_always --no-startup-id "rivalcfg --z1 0000ff --z2 0000ff --z3 0000ff -d reactive -a 3200dc -s 400"
+
 # TODO: configure dunst
 #exec_always --no-startup-id dunst
 
