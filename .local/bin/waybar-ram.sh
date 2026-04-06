@@ -1,0 +1,1 @@
+../../dotfiles/.local/bin/waybar-ram.sh

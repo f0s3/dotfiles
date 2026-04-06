@@ -1,0 +1,33 @@
+# Houston theme for micro
+
+# ----- Base -----
+color-link default           "#EEF0F9"
+color-link bg                "#17191E"
+color-link cursor            "#DDE1E8"
+color-link selection         "#343841"
+color-link line-number       "#424450"
+color-link gutter            "#424450"
+color-link statusline        "#343841"
+color-link statusline-fg     "#EEF0F9"
+
+# ----- Syntax -----
+color-link comment           "#5A5E6B"
+color-link constant          "#FF63A5"  # pink-accent
+color-link string            "#4BF3C8"  # mint-green
+color-link keyword           "#54B9FF"  # sky-blue
+color-link type              "#B180D7"  # soft purple
+color-link identifier        "#BFC1C9"
+color-link punctuation       "#BFC1C9"
+color-link statement         "#FFD493"  # light yellow
+color-link special           "#80E6F2"  # bright cyan-blue
+color-link preproc           "#C798E8"  # purple-accent
+
+# ----- Search / Matching -----
+color-link match             "#4BF3C8"
+color-link search            "#54B9FF"
+color-link search-current    "#54B9FF"
+
+# ----- Errors / Diagnostics -----
+color-link error             "#FF75B3"
+color-link warning           "#FFD493"
+color-link info              "#7EC9FF"

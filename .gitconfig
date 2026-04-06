@@ -1,0 +1,9 @@
+[user]
+	email = power.aerozoll@gmail.com
+	name = f0s3
+[init]
+	defaultBranch = main
+[push]
+	autoSetupRemote = true
+[core]
+	excludesfile = ~/.gitignore_global

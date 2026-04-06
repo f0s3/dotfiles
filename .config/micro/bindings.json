@@ -1,0 +1,7 @@
+{
+    "\u001b[122;6u": "Redo",
+    "Alt-/": "lua:comment.comment",
+    "Ctrl-h": "command:replace '' '' -l",
+    "Ctrl-p": "command:prompt",
+    "CtrlUnderscore": "lua:comment.comment"
+}

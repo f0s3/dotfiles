@@ -1,0 +1,1 @@
+../../dotfiles/.local/bin/fcitx5-workspace-layout.sh

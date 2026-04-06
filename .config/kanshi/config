@@ -1,0 +1,12 @@
+# kanshi/config
+# Profiles are matched by connected outputs.
+# Kanshi applies the first profile whose outputs all match what's connected.
+
+profile docked {
+    output eDP-2 disable
+    output DP-3 enable mode 1920x1080@143.98 scale 1.0 position 0,0
+}
+
+profile mobile {
+    output eDP-2 enable mode 2560x1600@120 scale 1.6 position 0,0
+}

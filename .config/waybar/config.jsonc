@@ -1,0 +1,53 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+  "spacing": 0,
+  "margin-top": 6,
+  "margin-left": 8,
+  "margin-right": 8,
+  "gtk-layer-shell": true,
+
+  "modules-left": ["hyprland/workspaces"],
+
+  "modules-right": ["custom/ram", "battery", "clock", "tray"],
+
+  "hyprland/workspaces": {
+    "format": "{id}",
+    "on-click": "activate",
+    "sort-by-number": true,
+    "active-only": false,
+    "all-outputs": false,
+    "persistent-workspaces": {},
+  },
+
+  "custom/ram": {
+    "exec": "~/.local/bin/waybar-ram.sh",
+    "interval": 3,
+    "return-type": "json",
+    "tooltip": false,
+  },
+
+  "battery": {
+    "bat": "BAT0",
+    "adapter": "AC0",
+    "interval": 30,
+    "states": { "low": 20 },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-full": "󰁹 100%",
+    "format-icons": ["󰁺", "󰁼", "󰁾", "󰂀", "󰁹"],
+    "tooltip": false,
+  },
+
+  "clock": {
+    "interval": 1,
+    "format": " {:%d.%m  %H:%M:%S}",
+    "tooltip": false,
+  },
+
+  "tray": {
+    "spacing": 6,
+    "icon-size": 14,
+  },
+}

@@ -1,0 +1,46 @@
+/* Wofi style — matches Polybar/Waybar theme */
+
+window {
+  background-color: #181818;
+  border: 2px solid #7129ff;
+  border-radius: 8px;
+  font-family: "DejaVuSansM Nerd Font Mono";
+  font-size: 16px;
+}
+
+#input {
+  background-color: #181818;
+  color: #5c78ff;
+  border: none;
+  border-bottom: 1px solid #7129ff;
+  border-radius: 0;
+  padding: 8px 12px;
+  margin: 0;
+}
+
+#input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+#scroll {
+  margin: 4px 0;
+}
+
+#entry {
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+#entry:selected {
+  background-color: #7129ff;
+  color: #ffffff;
+}
+
+#text {
+  color: #5c78ff;
+}
+
+#text:selected {
+  color: #ffffff;
+}

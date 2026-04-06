@@ -1,0 +1,21 @@
+[Hotkey]
+# Disable built-in toggle hotkey — handled externally by SUPER+SPACE in hyprland.conf
+TriggerKeys=
+EnumerateForwardKeys=
+EnumerateBackwardKeys=
+EnumerateSkipFirst=False
+
+[Behavior]
+ActiveByDefault=False
+ShareInputState=No
+PreeditEnabledByDefault=True
+ShowInputMethodInformation=True
+ShowInputMethodInformationWhenFocusIn=False
+CompactInputMethodInformation=True
+ShowFirstInputMethodInformation=True
+DefaultPageSize=5
+OverrideXkbOption=False
+CustomXkbOption=
+ForceEnabledAddons=
+ForceDisabledAddons=statusarea
+PreloadInputMethod=True
