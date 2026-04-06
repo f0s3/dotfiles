@@ -1,1 +1,5 @@
-../../dotfiles/.local/bin/btw
+#!/bin/bash
+
+sudo efibootmgr --bootorder 3,2
+reboot
+
