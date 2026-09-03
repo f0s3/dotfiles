@@ -1,68 +1,152 @@
 #!/usr/bin/env bash
 # Apply the dotfiles to this machine.
 #
-# Usage:  ./install.sh
+#   ./install.sh                 link anything that is missing or out of sync
+#   ./install.sh --check         report what WOULD happen, change nothing
+#   ./install.sh --uninstall     remove the symlinks (configs stay in git)
 #
-# Symlinks each tracked file from this repo into its live location via GNU Stow,
-# and for the root-owned /etc drop-in prompts for sudo. Reversible with:
-#   ./install.sh --uninstall
+# Fully idempotent and safe to run many times: each tracked file is examined and
+# only linked when it is missing, a real file whose contents already match the
+# repo (converted to a symlink), or an incorrect symlink. Real files whose
+# contents DIFFER from the repo are left untouched with a warning -- nothing is
+# ever silently overwritten.
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 STOW_DIR="$REPO_DIR/stow"
 
-uninstall=0
-[[ ${1:-} == "--uninstall" ]] && uninstall=1
+mode="install"
+[[ ${1:-} == "--check" ]] && mode="check"
+[[ ${1:-} == "--uninstall" ]] && mode="uninstall"
 
-# Tracked user files, relative to $HOME, that we own. Anything already present
-# as a regular file is moved aside (suffix ~) so stow can link cleanly; this
-# keeps re-runs idempotent and back-ups pre-existing content.
-USER_FILES=(
-  ".config/hypr/bindings.lua"
-  ".config/hypr/hyprland.lua"
-  ".config/omarchy/hooks/post-boot.d/wake-displays.sh"
+# Tracked files: live location -> repo source (absolute).
+# user files are relative to $HOME; the /etc one is root-owned.
+USER_PAIRS=(
+  ".config/hypr/bindings.lua:stow/config/.config/hypr/bindings.lua"
+  ".config/hypr/hyprland.lua:stow/config/.config/hypr/hyprland.lua"
+  ".config/omarchy/hooks/post-boot.d/wake-displays.sh:stow/config/.config/omarchy/hooks/post-boot.d/wake-displays.sh"
 )
+ETC_SRC="$STOW_DIR/etc/systemd/logind.conf.d/30-lid-switch.conf"
+ETC_DST="/etc/systemd/logind.conf.d/30-lid-switch.conf"
 
-backup_existing() {
-  local prefix="$1" ; shift
-  local f
-  for rel in "$@"; do
-    local path="$prefix/$rel"
-    if [[ -e $path && ! -L $path ]]; then
-      echo "Backing up existing $path -> $path~"
-      mv "$path" "$path~"
+if [[ $mode == "uninstall" ]]; then
+  echo "== dotfiles: uninstall =="
+  for pair in "${USER_PAIRS[@]}"; do
+    live="$HOME/${pair%%:*}"
+    src="$REPO_DIR/${pair#*:}"
+    if [[ -L $live ]] && [[ "$(readlink -f "$live")" == "$(readlink -f "$src")" ]]; then
+      echo "  [removed] ${live#"$HOME"/}"
+      rm "$live"
+    else
+      echo "  [keep]   ${live#"$HOME"/} (not a repo symlink; left alone)"
     fi
   done
-}
-
-cd "$STOW_DIR"
-
-if (( uninstall )); then
-  stow -t "$HOME" -D config
-  sudo rm -f /etc/systemd/logind.conf.d/30-lid-switch.conf
-  echo "Removed symlinks. Backups (with ~) and repo files remain."
+  if [[ -L $ETC_DST ]] && [[ "$(readlink -f "$ETC_DST")" == "$(readlink -f "$ETC_SRC")" ]]; then
+    echo "  [removed] $ETC_DST"
+    sudo rm "$ETC_DST"
+  else
+    echo "  [keep]   $ETC_DST (not a repo symlink; left alone)"
+  fi
+  echo
+  echo "Removed repo symlinks. Files are still in git; the ~ backups remain."
   exit 0
 fi
 
-echo "Installing user configs -> ~"
-backup_existing "$HOME" "${USER_FILES[@]}"
-stow -t "$HOME" config
+changed=0
+unchanged=0
+skipped=0
 
-# Symlink the single /etc/systemd drop-in directly (stow would link the whole
-# directory tree, which we do not want). Back up any existing real file first.
-echo "Installing system config -> /etc (sudo)"
-sudo mkdir -p /etc/systemd/logind.conf.d
-sudo bash -c '
-  f=/etc/systemd/logind.conf.d/30-lid-switch.conf
-  if [[ -e $f && ! -L $f ]]; then
-    echo "Backing up existing $f -> $f~"
-    mv "$f" "$f~"
+link_if_needed() {
+  local live="$1" src="$2"
+  local rel="${live#"$HOME"/}"
+
+  # Already a symlink pointing at the repo source: perfect, nothing to do.
+  if [[ -L $live ]] && [[ "$(readlink -f "$live")" == "$(readlink -f "$src")" ]]; then
+    echo "  [ok]    $rel (already linked)"
+    unchanged=$((unchanged + 1))
+    return 0
   fi
-  ln -sf "'"$STOW_DIR"'/etc/systemd/logind.conf.d/30-lid-switch.conf" "$f"
-'
 
-# Apply the logind change. On a fresh install this runs before a graphical
-# session (or via SSH), so the restart is safe.
-sudo systemctl restart systemd-logind
+  # Missing: safe to create the symlink (creating parent dirs as needed).
+  if [[ ! -e $live ]]; then
+    [[ $mode == "check" ]] && { echo "  [todo]  $rel (would link)"; return 0; }
+    echo "  [link]  $rel"
+    mkdir -p "$(dirname "$live")"
+    ln -s "$src" "$live"
+    changed=$((changed + 1))
+    return 0
+  fi
 
-echo "Done. Dotfiles are now linked."
+  # Real file with identical content: safe to convert to a symlink (no data
+  # loss -- the content is already in the repo). Back it up first anyway.
+  if cmp -s "$live" "$src"; then
+    if [[ $mode == "check" ]]; then
+      echo "  [todo]  $rel (real file, identical content -> would link)"
+      return 0
+    fi
+    echo "  [link]  $rel (identical content, backed up to ~)"
+    mv "$live" "$live~"
+    mkdir -p "$(dirname "$live")"
+    ln -s "$src" "$live"
+    changed=$((changed + 1))
+    return 0
+  fi
+
+  # Real file whose content differs from the repo: never overwrite, just warn.
+  echo "  [warn]  $rel is a real file with DIFFERENT content than the repo."
+  echo "          Left untouched. Diff and resolve manually (repo vs $src)."
+  skipped=$((skipped + 1))
+  return 1
+}
+
+echo "== dotfiles: $mode =="
+
+# --- User configs ---
+echo "* User configs (-> ~)"
+for pair in "${USER_PAIRS[@]}"; do
+  live="$HOME/${pair%%:*}"
+  src="$REPO_DIR/${pair#*:}"
+  link_if_needed "$live" "$src" || true
+done
+
+# --- /etc drop-in ---
+echo "* System config -> /etc (sudo)"
+logind_changed=0
+if [[ $mode == "check" ]]; then
+  link_if_needed "$ETC_DST" "$ETC_SRC" || true
+elif [[ -L $ETC_DST ]] && [[ "$(readlink -f "$ETC_DST")" == "$(readlink -f "$ETC_SRC")" ]]; then
+  echo "  [ok]    /etc/systemd/logind.conf.d/30-lid-switch.conf (already linked)"
+  unchanged=$((unchanged + 1))
+elif [[ ! -e $ETC_DST ]]; then
+  echo "  [link]  /etc/systemd/logind.conf.d/30-lid-switch.conf"
+  sudo mkdir -p /etc/systemd/logind.conf.d
+  sudo ln -s "$ETC_SRC" "$ETC_DST"
+  changed=$((changed + 1))
+  logind_changed=1
+elif cmp -s "$ETC_DST" "$ETC_SRC"; then
+  echo "  [link]  /etc/systemd/logind.conf.d/30-lid-switch.conf (identical content, backed up)"
+  sudo mv "$ETC_DST" "$ETC_DST~"
+  sudo ln -s "$ETC_SRC" "$ETC_DST"
+  changed=$((changed + 1))
+  logind_changed=1
+else
+  echo "  [warn]  $ETC_DST is a real file with DIFFERENT content than the repo."
+  echo "          Left untouched. Diff and resolve manually."
+  skipped=$((skipped + 1))
+fi
+
+# --- Apply logind restart only when we actually changed the drop-in ---
+if [[ $mode == "install" && $logind_changed -eq 1 ]]; then
+  echo "* Reloading systemd-logind to apply the lid-switch config"
+  sudo systemctl restart systemd-logind
+fi
+
+# --- Summary ---
+echo
+echo "== Summary =="
+echo "  changed: $changed   already-in-place: $unchanged   skipped/warned: $skipped"
+if (( changed == 0 && skipped == 0 )); then
+  echo "  Everything is already in place. Nothing to do."
+elif [[ $mode == "check" ]]; then
+  echo "  (dry run -- nothing was modified)"
+fi
