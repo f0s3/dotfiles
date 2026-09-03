@@ -37,12 +37,18 @@ has Omarchy defaults overwritten.
 
 ## Install on a clean machine
 
+Copy-paste this one-liner:
+
 ```bash
-git clone <your-remote> ~/dotfiles
-~/dotfiles/install.sh
+bash -c 'cd ~ && git clone --depth 1 --branch omarchy git@github.com:f0s3/dotfiles.git && ./dotfiles/install.sh'
 ```
 
-That's it — no other dependencies (only `sudo` for the `/etc` file).
+What it does: clones the repo into `~/dotfiles` then runs `install.sh`, which
+symlinks every tracked file into place. It'll prompt for `sudo` once for the
+`/etc` logind file. No other dependencies.
+
+> Requires an SSH key registered on GitHub (the standard `git@github.com`
+> setup). Only the `omarchy` branch is fetched.
 
 ## What install.sh does, exactly
 
